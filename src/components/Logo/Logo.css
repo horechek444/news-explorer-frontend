@@ -1,8 +1,13 @@
 .logo {
-    width: 200px;
+    width: 138px;
     height: 24px;
 }
 
 .logo__color_type_main {
     fill: white;
+}
+
+.logo__link {
+    max-width: 138px;
+    max-height: 24px;
 }

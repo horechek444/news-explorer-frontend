@@ -1,3 +1,5 @@
+import './SearchForm.css';
+
 const SearchForm = () => {
   return (
     <div className="search-form">

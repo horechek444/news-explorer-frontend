@@ -1,13 +1,17 @@
+import React from "react";
 import './Navigation.css';
+import {useLocation, Link} from 'react-router-dom';
 
-const Navigation = () => {
+const Navigation = ({loggedIn}) => {
+  const location = useLocation();
+
   return (
     <ul className="navigation">
-      <li className="navigation__item navigation__item_type_active">
-        <a className="navigation__link navigation__link_type_main navigation__link_type_main-active" href="#">Главная</a>
+      <li className="navigation__item navigation__item_active">
+        <Link className={`${location.pathname === '/saved-news' ? `navigation__link navigation__link_type_saved-news` : `navigation__link navigation__link_type_main-active`}`} to="/">Главная</Link>
       </li>
-      <li className="navigation__item">
-        <a className="navigation__link navigation__link_type_main" href="#">Сохранённые статьи</a>
+      <li className={`${loggedIn ? `navigation__item navigation__item_active` : `navigation__item`}`}>
+        <Link className={`${location.pathname === '/saved-news' ? `navigation__link navigation__link_type_saved-news-active` : `navigation__link navigation__link_type_main`}`} to="/saved-news">Сохранённые статьи</Link>
       </li>
     </ul>
   )

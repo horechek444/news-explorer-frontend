@@ -3,11 +3,15 @@
     height: 24px;
 }
 
+.logo__link {
+    max-width: 138px;
+    max-height: 24px;
+}
+
 .logo__color_type_main {
     fill: white;
 }
 
-.logo__link {
-    max-width: 138px;
-    max-height: 24px;
+.logo__color_type_saved-news {
+    fill: rgba(26, 27, 34, 1);
 }

@@ -1,0 +1,59 @@
+.button {
+    box-sizing: border-box;
+    display: block;
+    cursor: pointer;
+    box-shadow: none;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 1.33;
+}
+
+.login-button {
+    position: relative;
+    top: 0;
+    right: 0;
+    border-radius: 100px;
+    background-color: transparent;
+    padding: 10px 12px;
+}
+
+.login-button_active {
+    padding: 10px 42px 10px 12px;
+}
+
+.login-button_type_main {
+    border: 1px solid #FFFFFF;
+    color: #FFFFFF;
+}
+
+.login-button_type_main-login {
+    border: 1px solid #FFFFFF;
+    color: #FFFFFF;
+}
+
+.login-button_type_main-login::after {
+    content: "";
+    position: absolute;
+    top: 13px;
+    right: 9px;
+    width: 24px;
+    height: 24px;
+    background-image: url("../../images/logout_main.svg");
+    background-repeat: no-repeat;
+}
+
+.login-button_type_saved-news {
+    border: 1px solid #1A1B22;
+    color: #1A1B22;
+}
+
+.login-button_type_saved-news::after {
+    content: "";
+    position: absolute;
+    top: 9px;
+    right: 13px;
+    width: 24px;
+    height: 24px;
+    background-image: url("../../images/logout_saved.svg");
+    background-repeat: no-repeat;
+}

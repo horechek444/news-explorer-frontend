@@ -6,6 +6,11 @@
     padding: 19px 104px 16px;
 }
 
+.header__cover {
+    display: flex;
+    align-items: center;
+}
+
 .header_type_main {
     box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.2);
 }

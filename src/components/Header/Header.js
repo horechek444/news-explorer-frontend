@@ -9,10 +9,13 @@ const Header = ({loggedIn}) => {
   const location = useLocation();
 
   return (
-    <header className={`${location.pathname === '/saved-news' ? `header header_type_saved-news` : `header header_type_main`}`}>
-      <Logo />
-      <Navigation loggedIn={loggedIn} />
-      <Login loggedIn={loggedIn} />
+    <header
+      className={`${location.pathname === '/saved-news' ? `header header_type_saved-news` : `header header_type_main`}`}>
+      <Logo/>
+      <div className="header__cover">
+        <Navigation loggedIn={loggedIn}/>
+        <Login loggedIn={loggedIn}/>
+      </div>
     </header>
   )
 }

@@ -1,7 +1,6 @@
 .navigation {
     display: flex;
     justify-content: space-between;
-    min-width: 281px;
     margin: 0;
     padding: 0;
     list-style: none;
@@ -12,6 +11,7 @@
 
 .navigation__item {
     display: none;
+    margin-right: 33px;
 }
 
 .navigation__item_active {
@@ -27,7 +27,7 @@
 }
 
 .navigation__link_type_saved-news {
-    color: rgba(26, 27, 34, 1);
+    color: #1A1B22;
 }
 
 .navigation__link_type_main-active {
@@ -47,7 +47,7 @@
 
 .navigation__link_type_saved-news-active {
     position: relative;
-    color: rgba(26, 27, 34, 1);
+    color: #1A1B22;
 }
 
 .navigation__link_type_saved-news-active::before {

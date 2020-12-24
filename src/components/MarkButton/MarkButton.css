@@ -1,0 +1,35 @@
+.mark-button {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    max-width: 40px;
+    max-height: 40px;
+}
+
+/*.mark-button:hover .mark-button__color {*/
+/*    stroke: #1A1B22;*/
+/*}*/
+
+.mark-button::before {
+    content: "";
+    position: absolute;
+    background-image: url("../../images/mark-hover.svg");
+    background-repeat: no-repeat;
+    top: 0;
+    right: 5px;
+    width: 182px;
+    height: 40px;
+}
+
+/*.mark-button:hover .mark-button__hover {*/
+/*    display: block;*/
+/*}*/
+
+/*.mark-button__color_active {*/
+/*    stroke: #2F71E5;*/
+/*    fill: #2F71E5;*/
+/*}*/
+
+/*.mark-button:hover .mark-button__color_active {*/
+/*    stroke: #2F71E5;*/
+/*}*/

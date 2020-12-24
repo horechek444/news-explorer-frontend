@@ -1,0 +1,19 @@
+.saved-news__header {
+    padding: 40px 104px 56px;
+    background-color: #FFFFFF;
+}
+
+.saved-news__subtitle {
+    display: block;
+    color: rgba(26, 27, 34, 0.5);
+    margin-bottom: 28px;
+}
+
+.saved-news__title {
+    font-family: 'Roboto-Slab', Arial, sans-serif;
+    font-weight: 400;
+    font-size: 40px;
+    line-height: 1.15;
+    max-width: 530px;
+    margin: 0 0 30px;
+}

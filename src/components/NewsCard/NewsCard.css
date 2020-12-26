@@ -54,3 +54,16 @@
     font-family: Roboto-Slab, Arial,sans-serif;
     font-weight: 700;
 }
+
+.news-card__theme {
+    position: absolute;
+    background-color: #FFFFFF;
+    box-shadow: 0 10px 22px rgba(59, 74, 116, 0.1);
+    border-radius: 10px;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.7;
+    top: 24px;
+    left: 24px;
+    padding: 8.5px 12px;
+}

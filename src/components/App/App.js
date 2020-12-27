@@ -5,6 +5,7 @@ import SavedNews from "../SavedNews/SavedNews";
 import {Route, Switch} from 'react-router-dom';
 import '../../vendor/fonts/fonts.css';
 import Footer from "../Footer/Footer";
+import PopupTypeRegister from "../PopupTypeRegister/PopupTypeRegister";
 
 function App() {
   const [loggedIn, setLoggedIn] = React.useState(true);
@@ -21,6 +22,7 @@ function App() {
           </Route>
         </Switch>
         <Footer/>
+        <PopupTypeRegister/>
       </div>
     </div>
   );

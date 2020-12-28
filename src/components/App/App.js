@@ -6,6 +6,8 @@ import {Route, Switch} from 'react-router-dom';
 import '../../vendor/fonts/fonts.css';
 import Footer from "../Footer/Footer";
 import PopupTypeRegister from "../PopupTypeRegister/PopupTypeRegister";
+import PopupTypeLogin from "../PopupTypeLogin/PopupTypeLogin";
+import PopupTypeSuccess from "../PopupTypeSuccess/PopupTypeSuccess";
 
 function App() {
   const [loggedIn, setLoggedIn] = React.useState(true);
@@ -22,7 +24,9 @@ function App() {
           </Route>
         </Switch>
         <Footer/>
-        <PopupTypeRegister/>
+        {/*<PopupTypeRegister/>*/}
+        {/*<PopupTypeLogin/>*/}
+        {/*<PopupTypeSuccess/>*/}
       </div>
     </div>
   );

@@ -59,3 +59,22 @@
     height: 3px;
     background-color: #1A1B22;
 }
+
+@media screen and (max-width: 780px) {
+    .navigation {
+        font-size: 16px;
+        line-height: 1.5;
+    }
+
+    .navigation__item {
+        margin-right: 16px;
+    }
+
+    .navigation__link_type_main-active::before {
+        top: 38px;
+    }
+
+    .navigation__link_type_saved-news-active::before {
+        top: 38px;
+    }
+}

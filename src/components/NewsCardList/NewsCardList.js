@@ -13,6 +13,9 @@ const NewsCardList = () => {
         <NewsCard/>
         <NewsCard/>
         <NewsCard/>
+        <NewsCard/>
+        <NewsCard/>
+        <NewsCard/>
       </ul>
       <button className={`${location.pathname === '/saved-news' ? `news-cards__button` : `news-cards__button news-cards__button_active`}`}>Показать еще</button>
     </section>

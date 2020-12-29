@@ -22,7 +22,3 @@
   flex-direction: column;
   margin: 0 auto;
 }
-
-.header-search-wrapper {
-  background-image: url("../../images/header-background.jpg");
-}

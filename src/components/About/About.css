@@ -6,8 +6,8 @@
 }
 
 .about__avatar {
-    max-width: 464px;
-    min-height: 464px;
+    width: 464px;
+    height: 464px;
     border-radius: 50%;
     object-fit: cover;
 }
@@ -35,4 +35,35 @@
 
 .about__paragraph:first-of-type {
     margin: 24px 0 0;
+}
+
+@media screen and (max-width: 780px) {
+    .about {
+        padding: 40px;
+        align-items: center;
+    }
+
+    .about__avatar {
+        width: 232px;
+        height: 232px;
+    }
+
+    .about__cover {
+        padding-top: 0;
+    }
+
+    .about__title {
+        font-size: 30px;
+        line-height: 1.33;
+    }
+
+    .about__paragraph {
+        margin: 25px 0 0;
+        max-width: 424px;
+    }
+
+    .about__paragraph:first-of-type {
+        margin: 16px 0 0;
+    }
+
 }

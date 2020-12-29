@@ -36,3 +36,15 @@
 .mark-button:active + .mark-button__message {
     display: none;
 }
+
+@media screen and (max-width: 780px) {
+    .mark-button {
+        top: 8px;
+        right: 8px;
+    }
+
+    .mark-button__message {
+        top: 54px;
+        right: 8px;
+    }
+}

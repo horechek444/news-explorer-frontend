@@ -35,3 +35,16 @@
 .mark-cart:active + .mark-cart__message {
     display: none;
 }
+
+@media screen and (max-width: 780px) {
+    .mark-cart {
+        position: absolute;
+        top: 8px;
+        right: 8px;
+    }
+
+    .mark-cart__message {
+        top: 54px;
+        right: 8px;
+    }
+}

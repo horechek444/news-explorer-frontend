@@ -53,3 +53,14 @@
 .preloader__title {
     color: rgba(182, 188, 191, 1);
 }
+
+@media all and (max-width: 780px) {
+    .preloader {
+        padding: 40px;
+    }
+
+    .preloader__circle {
+        height: 50px;
+        width: 50px;
+    }
+}

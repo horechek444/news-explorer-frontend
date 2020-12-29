@@ -5,13 +5,28 @@
     padding: 0;
     margin: 0;
     min-width: 72px;
+    max-height: 25px;
 }
 
 .social-icon {
-    width: 24px;
-    height: 24px;
+    width: 25px;
+    height: 25px;
+}
+
+.social-item:nth-child(3) {
+    display: none;
 }
 
 .social-item:hover .social-color {
     fill: #347EFF;
+}
+
+@media all and (max-width: 780px) {
+    .social-item:nth-child(2) {
+        display: none;
+    }
+
+    .social-item:nth-child(3) {
+        display: block;
+    }
 }

@@ -35,7 +35,8 @@
     margin: 0;
     padding: 0;
     list-style: none;
-    min-width: 1232px;
+    width: 100%;
+    /*min-width: 1232px;*/
 }
 
 .news-cards__button {
@@ -64,7 +65,7 @@
     display: block;
 }
 
-@media screen and (max-width: 780px) {
+@media all and (max-width: 780px) {
     .news-cards {
         padding: 40px;
     }
@@ -83,7 +84,6 @@
         grid-template-columns: repeat(auto-fill, 224px);
         grid-auto-rows: 420px;
         gap: 8px;
-        min-width: 688px;
     }
 
     .news-cards__button {

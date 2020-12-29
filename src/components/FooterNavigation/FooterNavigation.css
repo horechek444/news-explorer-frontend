@@ -18,3 +18,9 @@
     font-size: 18px;
     line-height: 1.33;
 }
+
+@media all and (max-width: 780px) {
+    .footer__nav-list {
+        min-width: 260px;
+    }
+}

@@ -1,9 +1,14 @@
-.mark-cart {
+.mark-cart__button {
     position: absolute;
+    background-image: url('../../images/trash.svg');
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 8px;
     top: 24px;
     right: 24px;
-    max-width: 40px;
-    max-height: 40px;
+    border: none;
+    width: 40px;
+    height: 40px;
 }
 
 .mark-cart__message {
@@ -20,25 +25,24 @@
     padding: 13px 12px;
 }
 
-.mark-cart:hover .mark-cart__color {
-    fill: #1A1B22;
+.mark-cart__button:hover {
+    background-image: url('../../images/trash-hover.svg');
 }
 
-.mark-cart:hover + .mark-cart__message {
+.mark-cart__button:hover + .mark-cart__message {
     display: block;
 }
 
-.mark-cart:active .mark-cart__color {
-    fill: #2F71E5;
+.mark-cart__button:active {
+    background-image: url('../../images/trash-active.svg');
 }
 
-.mark-cart:active + .mark-cart__message {
+.mark-cart__button:active + .mark-cart__message {
     display: none;
 }
 
 @media screen and (max-width: 780px) {
-    .mark-cart {
-        position: absolute;
+    .mark-cart__button {
         top: 8px;
         right: 8px;
     }

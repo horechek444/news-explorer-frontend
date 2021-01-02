@@ -60,6 +60,7 @@
 
 .search-form__submit {
     position: relative;
+    display: inline-block;
     top: 2px;
     right: 0;
     z-index: 2;
@@ -69,9 +70,6 @@
     padding: 20.5px 53px;
     color: #FFFFFF;
     border: none;
-    font-size: 18px;
-    line-height: 1.33;
-    cursor: pointer;
 }
 
 .search-form__submit:hover {
@@ -102,7 +100,7 @@
     color: rgba(182, 188, 191, 1);
 }
 
-@media screen and (max-width: 800px) {
+@media all and (max-width: 800px) {
     .search-form {
         padding: 38px 40px 48px;
     }
@@ -126,14 +124,14 @@
     }
 
     .search-form__cover::after {
-        top: 1px;
-        right: 137px;
-        min-width: 27px;
+        top: 0;
+        right: 130px;
+        min-width: 29px;
         min-height: 54px;
     }
 
     .search-form__submit {
-        top: 1px;
+        top: 0;
         padding: 16px 49.5px 17px;
     }
 }

@@ -7,8 +7,8 @@ import MarkCart from "../MarkCart/MarkCart";
 const NewsCard = () => {
   return (
     <li className="news-card">
-      {/*<MarkButton/>*/}
-      <MarkCart/>
+      <MarkButton/>
+      {/*<MarkCart/>*/}
       <img className="news-card__picture" src={image} alt=""/>
       <div className="news-card__cover">
         <span className="news-card__date">2 августа, 2019</span>

@@ -12,7 +12,7 @@ const SearchForm = () => {
           <label className="search-form__control">
             <input className="search-form__input" type="text" placeholder="Введите тему новости"/>
           </label>
-          <input className="search-form__submit" type="submit" value="Искать"/>
+          <input className="button search-form__submit" type="submit" value="Искать"/>
         </div>
       </div>
     </section>

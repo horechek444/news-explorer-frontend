@@ -1,9 +1,14 @@
 .mark-button {
     position: absolute;
+    background-image: url('../../images/mark.svg');
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 8px;
     top: 24px;
     right: 24px;
-    max-width: 40px;
-    max-height: 40px;
+    border: none;
+    width: 40px;
+    height: 40px;
 }
 
 .mark-button__message {
@@ -20,17 +25,16 @@
     padding: 14px 12px;
 }
 
-.mark-button:hover .mark-button__color {
-    stroke: #1A1B22;
+.mark-button:hover {
+    background-image: url('../../images/mark-hover.svg');
 }
 
 .mark-button:hover + .mark-button__message {
     display: block;
 }
 
-.mark-button:active .mark-button__color {
-    stroke: #2F71E5;
-    fill: #2F71E5;
+.mark-button:active {
+    background-image: url('../../images/mark-active.svg');
 }
 
 .mark-button:active + .mark-button__message {

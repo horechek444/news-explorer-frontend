@@ -42,16 +42,10 @@
 .news-cards__button {
     display: none;
     padding: 20px 84px;
-    cursor: pointer;
-    box-sizing: border-box;
-    box-shadow: none;
     border: none;
     background-color: #FFFFFF;
     border-radius: 80px;
     font-style: normal;
-    font-weight: 500;
-    font-size: 18px;
-    line-height: 1.33;
     align-items: center;
     text-align: center;
     margin: 64px 0 0;

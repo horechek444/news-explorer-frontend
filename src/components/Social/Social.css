@@ -8,25 +8,40 @@
     max-height: 25px;
 }
 
-.social-icon {
+.social-item {
     width: 25px;
     height: 25px;
 }
 
-.social-item:nth-child(3) {
-    display: none;
+.social-item .social-link {
+    display: block;
+    background-image: url('../../images/github.svg');
+    max-width: 25px;
+    min-height: 25px;
 }
 
-.social-item:hover .social-color {
-    fill: #347EFF;
+.social-item:first-child .social-link {
+    background-image: url('../../images/github.svg');
+}
+
+.social-item:last-child .social-link {
+    background-image: url('../../images/fb.svg');
+}
+
+.social-item:first-child:hover .social-link {
+    background-image: url('../../images/github-hover.svg');
+}
+
+.social-item:last-child:hover .social-link {
+    background-image: url('../../images/fb-hover.svg');
 }
 
 @media all and (max-width: 780px) {
-    .social-item:nth-child(2) {
-        display: none;
+    .social-item:last-child .social-link {
+        background-image: url('../../images/tablet-fb.svg');
     }
 
-    .social-item:nth-child(3) {
-        display: block;
+    .social-item:last-child:hover .social-link {
+        background-image: url('../../images/tablet-fb-hover.svg');
     }
 }

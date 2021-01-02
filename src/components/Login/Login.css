@@ -14,7 +14,7 @@
     right: 0;
     border-radius: 100px;
     background-color: transparent;
-    padding: 10px 12px;
+    padding: 11px 17px;
 }
 
 .login-button_active {
@@ -26,9 +26,17 @@
     color: #FFFFFF;
 }
 
+.login-button_type_main:hover {
+    opacity: 0.5;
+}
+
 .login-button_type_main-login {
     border: 1px solid #FFFFFF;
     color: #FFFFFF;
+}
+
+.login-button_type_main-login:hover {
+    opacity: 0.5;
 }
 
 .login-button_type_main-login::after {

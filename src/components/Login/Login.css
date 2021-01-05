@@ -70,7 +70,7 @@
     background-repeat: no-repeat;
 }
 
-@media screen and (max-width: 780px) {
+@media all and (max-width: 780px) {
     .button {
         font-size: 16px;
         line-height: 1.5;
@@ -82,6 +82,32 @@
 
     .login-button_active {
         padding: 7px 42px 8px 11px;
+    }
+
+    .login-button_type_main-login::after {
+        top: 11px;
+        right: 7px;
+    }
+
+    .login-button_type_saved-news::after {
+        top: 7px;
+        right: 12px;
+    }
+}
+
+@media all and (max-width: 570px) {
+    .button {
+        font-size: 18px;
+        line-height: 1.33;
+        min-width: 100%;
+    }
+
+    .login-button {
+        padding: 8px 12px;
+    }
+
+    .login-button_active {
+        padding: 15px 42px 17px 11px;
     }
 
     .login-button_type_main-login::after {

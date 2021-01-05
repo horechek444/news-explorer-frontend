@@ -11,10 +11,12 @@ const Header = ({loggedIn}) => {
   return (
     <header
       className={`${location.pathname === '/saved-news' ? `header header_type_saved-news` : `header header_type_main`}`}>
-      <Logo/>
-      <div className="header__cover">
-        <Navigation loggedIn={loggedIn}/>
-        <Login loggedIn={loggedIn}/>
+      <div className="header__container">
+        <Logo/>
+        <div className="header__cover">
+          <Navigation loggedIn={loggedIn}/>
+          <Login loggedIn={loggedIn}/>
+        </div>
       </div>
     </header>
   )

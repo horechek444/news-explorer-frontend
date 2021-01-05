@@ -10,7 +10,7 @@ const FooterNavigation = () => {
           <NavLink className="hover-effect footer__nav-link" to="/" target="_blank">Главная</NavLink>
         </li>
         <li className="footer__nav-item">
-          <NavLink className="hover-effect footer__nav-link" to="https://praktikum.yandex.ru/" target="_blank">Яндекс.Практикум</NavLink>
+          <a className="hover-effect footer__nav-link" href="https://praktikum.yandex.ru/" target="_blank" rel="noreferrer">Яндекс.Практикум</a>
         </li>
       </ul>
     </nav>

@@ -84,3 +84,25 @@
         margin: 16px 0 0;
     }
 }
+
+@media all and (max-width: 570px) {
+    .about {
+        flex-direction: column;
+        padding: 32px 16px 80px;
+    }
+
+    .about__avatar {
+        width: 272px;
+        height: 272px;
+        margin: 0 0 24px;
+    }
+
+    .about__paragraph {
+        margin: 25px 0 0;
+        max-width: 424px;
+    }
+
+    .about__paragraph:first-of-type {
+        margin: 16px 0 0;
+    }
+}

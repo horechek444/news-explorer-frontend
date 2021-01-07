@@ -6,13 +6,8 @@ import Login from '../Login/Login';
 import {useLocation} from 'react-router-dom';
 import Toggle from "../Toggle/Toggle";
 
-const Header = ({loggedIn}) => {
-  const [open, setOpen] = React.useState(false);
+const Header = ({name, open, handleOpenClick, loggedIn, handleCloseClick}) => {
   const location = useLocation();
-
-  const handleOpenClick = () => {
-    setOpen(!open);
-  }
 
   const handleHeaderClassNameClick = () => {
     if (location.pathname === '/saved-news') {
@@ -54,8 +49,8 @@ const Header = ({loggedIn}) => {
           <Toggle open={open} handleOpenClick={handleOpenClick}/>
         </div>
         <div className={handleCoverClassNameClick()}>
-          <Navigation loggedIn={loggedIn}/>
-          <Login loggedIn={loggedIn}/>
+          <Navigation loggedIn={loggedIn} handleCloseClick={handleCloseClick}/>
+          <Login name={name} loggedIn={loggedIn}/>
         </div>
       </div>
     </header>

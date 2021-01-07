@@ -36,7 +36,6 @@
     padding: 0;
     list-style: none;
     width: 100%;
-    /*min-width: 1232px;*/
 }
 
 .news-cards__button {
@@ -83,5 +82,31 @@
     .news-cards__button {
         padding: 16px 60px;
         margin: 32px 0 0;
+    }
+}
+
+@media all and (max-width: 570px) {
+    .news-cards {
+        padding: 32px 16px;
+    }
+
+    .news-cards_type_saved-news {
+        padding: 24px 16px;
+    }
+
+    .news-cards__title {
+        margin: 0 0 24px;
+        min-height: 68px;
+    }
+
+    .news-cards__list {
+        grid-template-columns: repeat(auto-fill, 288px);
+        grid-auto-rows: 440px;
+        gap: 10px;
+    }
+
+    .news-cards__button {
+        padding: 16px 84px;
+        margin: 16px 0 0;
     }
 }

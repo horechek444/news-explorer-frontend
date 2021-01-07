@@ -45,3 +45,17 @@
         background-image: url('../../images/tablet-fb-hover.svg');
     }
 }
+
+@media all and (max-width: 730px) {
+    .social-icons {
+        padding-top: 2px;
+    }
+
+    .social-item:last-child .social-link {
+        background-image: url('../../images/fb.svg');
+    }
+
+    .social-item:last-child:hover .social-link {
+        background-image: url('../../images/fb-hover.svg');
+    }
+}

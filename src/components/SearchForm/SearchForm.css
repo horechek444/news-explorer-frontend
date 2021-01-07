@@ -124,3 +124,47 @@
         padding: 16px 49.5px 16px;
     }
 }
+
+@media all and (max-width: 570px) {
+    .search-form {
+        padding: 32px 16px;
+        min-width: calc(100% - 32px);
+    }
+
+    .search-form_type_open {
+        margin-top: 56px;
+    }
+
+    .search-form__title {
+        min-height: 80px;
+        min-width: 100%;
+    }
+
+    .search-form__subtitle {
+        margin: 0 0 122px;
+        min-width: 100%;
+    }
+
+    .search-form__input {
+        padding: 17px 16px;
+        min-width: 100%;
+        border-radius: 50px;
+    }
+
+    .search-form__cover {
+        flex-direction: column;
+        justify-content: space-between;
+        min-width: 288px;
+        min-height: 128px;
+        background-color: transparent;
+        border: none;
+    }
+
+    .search-form__submit {
+        position: relative;
+        top: 0;
+        left: 0;
+        padding: 17px 16px;
+        min-width: 100%;
+    }
+}

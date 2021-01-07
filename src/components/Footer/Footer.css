@@ -26,3 +26,20 @@
         min-width: 360px;
     }
 }
+
+@media all and (max-width: 730px) {
+    .footer {
+        flex-direction: column;
+        padding: 18px 16px 22px;
+        align-items: flex-start;
+    }
+
+    .footer__copyright {
+        order: 2;
+    }
+
+    .footer__cover {
+        width: 100%;
+        min-width: 100%;
+    }
+}

@@ -2,7 +2,7 @@ import React from "react";
 import './Login.css';
 import {useLocation} from 'react-router-dom';
 
-const Login = ({loggedIn}) => {
+const Login = ({name, loggedIn}) => {
   const location = useLocation();
 
   const handleClassName = () => {
@@ -15,7 +15,7 @@ const Login = ({loggedIn}) => {
 
   return (
     <button
-      className={`${location.pathname === '/saved-news' ? `button login-button login-button_active login-button_type_saved-news` : handleClassName()}`}>{`${loggedIn ? `Таня` : `Авторизоваться`}`}</button> // todo вставить name props
+      className={location.pathname === '/saved-news' ? `button login-button login-button_active login-button_type_saved-news` : handleClassName()}>{loggedIn ? `${name}` : "Авторизоваться"}</button>
   )
 }
 

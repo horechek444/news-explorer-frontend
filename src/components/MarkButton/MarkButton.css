@@ -41,7 +41,7 @@
     display: none;
 }
 
-@media screen and (max-width: 780px) {
+@media all and (max-width: 780px) {
     .mark-button {
         top: 8px;
         right: 8px;
@@ -50,5 +50,17 @@
     .mark-button__message {
         top: 54px;
         right: 8px;
+    }
+}
+
+@media all and (max-width: 570px) {
+    .mark-button {
+        top: 16px;
+        right: 16px;
+    }
+
+    .mark-button__message {
+        top: 60px;
+        right: 16px;
     }
 }

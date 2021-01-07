@@ -1,29 +1,31 @@
 .logo {
-    width: 138px;
-    height: 24px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    min-width: 138px;
+    min-height: 24px;
 }
 
 .logo__link {
     max-width: 138px;
-    max-height: 24px;
+    min-height: 24px;
 }
 
-.logo__color_type_main {
-    fill: white;
+.logo_type_main {
+    background-image: url('../../images/logo_main.svg');
 }
 
-.logo__color_type_saved-news {
-    fill: rgba(26, 27, 34, 1);
+.logo_type_saved-news {
+    background-image: url('../../images/logo_saved.svg');
 }
 
 @media all and (max-width: 570px) {
     .logo {
-        transform: scale(0.85);
-        transform-origin: left;
+        min-width: 117px;
+        min-height: 24px;
     }
 
     .logo__link {
         max-width: 117px;
-        max-height: 24px;
+        min-height: 24px;
     }
 }

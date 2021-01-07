@@ -99,11 +99,11 @@
     .button {
         font-size: 18px;
         line-height: 1.33;
-        min-width: 100%;
     }
 
     .login-button {
         padding: 8px 12px;
+        min-width: 100%;
     }
 
     .login-button_active {

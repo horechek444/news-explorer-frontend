@@ -3,10 +3,10 @@ import Header from "../Header/Header";
 import NewsCardList from "../NewsCardList/NewsCardList";
 import SavedNewsHeader from "../SavedNewsHeader/SavedNewsHeader";
 
-const SavedNews = ({open, handleOpenClick, name, loggedIn}) => {
+const SavedNews = ({isOpen, handleOpenMenuClick, name, loggedIn}) => {
   return (
     <>
-      <Header name={name} open={open} handleOpenClick={handleOpenClick} loggedIn={loggedIn}/>
+      <Header name={name} open={isOpen} handleOpenMenuClick={handleOpenMenuClick} loggedIn={loggedIn}/>
       <SavedNewsHeader name={name}/>
       <NewsCardList/>
     </>

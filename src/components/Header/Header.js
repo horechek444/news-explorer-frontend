@@ -6,15 +6,15 @@ import Login from '../Login/Login';
 import {useLocation} from 'react-router-dom';
 import Toggle from "../Toggle/Toggle";
 
-const Header = ({name, open, handleOpenClick, loggedIn, handleCloseClick}) => {
+const Header = ({name, isOpen, handleToggleMenuClick, loggedIn, onClose, onLoginPopupOpen, handleLogOut}) => {
   const location = useLocation();
 
   const handleHeaderClassNameClick = () => {
     if (location.pathname === '/saved-news') {
       return "header header_type_saved-news";
-    } else if (location.pathname === '/saved-news' && open) {
+    } else if (location.pathname === '/saved-news' && isOpen) {
       return "header header_type_active header_type_saved-news";
-    } else if (location.pathname === '/' && open) {
+    } else if (location.pathname === '/' && isOpen) {
       return "header header_type_active header_type_main";
     } else {
       return "header header_type_main";
@@ -22,9 +22,9 @@ const Header = ({name, open, handleOpenClick, loggedIn, handleCloseClick}) => {
   }
 
   const handleContainerClassNameClick = () => {
-    if (location.pathname === '/saved-news' || (location.pathname === '/saved-news' && open)) {
+    if (location.pathname === '/saved-news' || (location.pathname === '/saved-news' && isOpen)) {
       return "header__container header__container_type_saved-news";
-    } else if (location.pathname === '/' && open) {
+    } else if (location.pathname === '/' && isOpen) {
       return "header__container header__container_type_main";
     } else {
       return "header__container";
@@ -32,9 +32,9 @@ const Header = ({name, open, handleOpenClick, loggedIn, handleCloseClick}) => {
   }
 
   const handleCoverClassNameClick = () => {
-    if (location.pathname === '/saved-news' && open) {
+    if (location.pathname === '/saved-news' && isOpen) {
       return "header__cover header__cover_type_saved-news";
-    } else if (location.pathname === '/' && open) {
+    } else if (location.pathname === '/' && isOpen) {
       return "header__cover header__cover_type_main";
     } else {
       return "header__cover";
@@ -46,11 +46,11 @@ const Header = ({name, open, handleOpenClick, loggedIn, handleCloseClick}) => {
       <div className={handleContainerClassNameClick()}>
         <div className="header__unite">
           <Logo/>
-          <Toggle open={open} handleOpenClick={handleOpenClick}/>
+          <Toggle isOpen={isOpen} handleToggleMenuClick={handleToggleMenuClick}/>
         </div>
         <div className={handleCoverClassNameClick()}>
-          <Navigation loggedIn={loggedIn} handleCloseClick={handleCloseClick}/>
-          <Login name={name} loggedIn={loggedIn}/>
+          <Navigation loggedIn={loggedIn} onClose={onClose}/>
+          <Login name={name} loggedIn={loggedIn} onLoginPopupOpen={onLoginPopupOpen} handleLogOut={handleLogOut} onClose={onClose}/>
         </div>
       </div>
     </header>

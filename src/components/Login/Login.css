@@ -103,6 +103,7 @@
 
     .login-button {
         min-width: 100%;
+        padding: 15px 11px 17px;
     }
 
     .login-button_active {

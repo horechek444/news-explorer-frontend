@@ -7,7 +7,7 @@ const Logo = () => {
 
   return (
     <Link className="hover-effect logo__link" to="/">
-      <div className={`${location.pathname === '/saved-news' ? `logo logo_type_saved-news` : `logo logo_type_main`}`}/>
+      <div className={location.pathname === '/saved-news' ? "logo logo_type_saved-news" : "logo logo_type_main"}/>
     </Link>
   )
 }

@@ -2,9 +2,14 @@ import React from "react";
 import Popup from "../Popup/Popup";
 import './PopupTypeSuccess.css';
 
-const PopupTypeSuccess = () => {
+const PopupTypeSuccess = ({isOpen, onClose, onLoginPopupOpen}) => {
   return (
-    <Popup name="success" title="Пользователь успешно зарегистрирован!"/>
+    <Popup
+      isOpen={isOpen}
+      name="success"
+      title="Пользователь успешно зарегистрирован!"
+      onClose={onClose}
+      onLoginPopupOpen={onLoginPopupOpen}/>
   )
 }
 

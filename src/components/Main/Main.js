@@ -7,14 +7,14 @@ import About from "../About/About";
 import Preloader from "../Preloader/Preloader";
 import NotFound from "../NotFound/NotFound";
 
-const Main = ({open, handleOpenClick, name, loggedIn, handleCloseClick}) => {
+const Main = ({isOpen, onLoginPopupOpen, handleToggleMenuClick, name, loggedIn, onClose, handleLogOut}) => {
 
 
   return (
     <>
       <div className="header-search-wrapper">
-        <Header name={name} open={open} handleOpenClick={handleOpenClick} loggedIn={loggedIn} handleCloseClick={handleCloseClick}/>
-        <SearchForm open={open}/>
+        <Header name={name} isOpen={isOpen} handleToggleMenuClick={handleToggleMenuClick} loggedIn={loggedIn} onClose={onClose} onLoginPopupOpen={onLoginPopupOpen} handleLogOut={handleLogOut}/>
+        <SearchForm isOpen={isOpen}/>
       </div>
       <main className="main">
         {/*<Preloader/>*/}

@@ -1,9 +1,9 @@
 import React from "react";
 import './SearchForm.css';
 
-const SearchForm = ({open}) => {
+const SearchForm = ({isOpen}) => {
   return (
-    <section className={open ? "search-form search-form_type_open" : "search-form"}>
+    <section className={isOpen ? "search-form search-form_type_open" : "search-form"}>
       <div className="search-form__container">
         <h1 className="search-form__title">Что творится в мире?</h1>
         <p className="search-form__subtitle">Находите самые свежие статьи на любую тему и сохраняйте в своём личном

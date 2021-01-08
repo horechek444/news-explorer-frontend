@@ -4,9 +4,9 @@ import './PopupTypeRegister.css';
 import PopupForm from "../PopupForm/PopupForm";
 import PopupInput from "../PopupInput/PopupInput";
 
-const PopupTypeRegister = () => {
+const PopupTypeRegister = ({isOpen, onClose, onLoginPopupOpen}) => {
   return (
-    <Popup name="register" title="Регистрация">
+    <Popup name="register" title="Регистрация" isOpen={isOpen} onClose={onClose} onLoginPopupOpen={onLoginPopupOpen}>
       <PopupForm name="register" submit="Зарегистрироваться">
         <PopupInput control="Email" name="email" type="email" placeholder="Введите почту"/>
         <PopupInput control="Пароль" name="password" type="password" placeholder="Введите пароль"/>

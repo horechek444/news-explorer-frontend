@@ -10,33 +10,80 @@ import PopupTypeLogin from "../PopupTypeLogin/PopupTypeLogin";
 import PopupTypeSuccess from "../PopupTypeSuccess/PopupTypeSuccess";
 
 function App() {
-  const [open, setOpen] = React.useState(false);
-  const [loggedIn, setLoggedIn] = React.useState(true);
+  const [isMenuOpen, setMenuOpen] = React.useState(false);
+  const [isPopupTypeLoginOpen, setPopupTypeLoginOpen] = React.useState(false);
+  const [isPopupTypeRegisterOpen, setPopupTypeRegisterOpen] = React.useState(false);
+  const [isPopupTypeSuccessOpen, setPopupTypeSuccessOpen] = React.useState(false);
+  const [loggedIn, setLoggedIn] = React.useState(false);
+  const [isRegister, setIsRegister] = React.useState(false);
   const name = "Таня";
 
-  const handleOpenClick = () => {
-    setOpen(!open);
+  const handleToggleMenuClick = () => {
+    setMenuOpen(!isMenuOpen);
   }
 
-  const handleCloseClick = () => {
-    setOpen(false);
+  const handleCloseMenuClick = () => {
+    setMenuOpen(false);
+  }
+
+  const handleCloseAllClick = () => {
+    setPopupTypeLoginOpen(false);
+    setPopupTypeRegisterOpen(false);
+    setPopupTypeSuccessOpen(false);
+  }
+
+  const handlePopupTypeLoginOpen = () => {
+    setPopupTypeLoginOpen(true);
+  }
+
+  const handlePopupTypeRegisterOpen = () => {
+    setPopupTypeRegisterOpen(true);
+  }
+
+  const handleLogOut = () => {
+    setLoggedIn(false);
   }
 
   return (
     <div className="page">
       <div className="page__cover">
+        <PopupTypeLogin
+          isOpen={isPopupTypeLoginOpen}
+          onClose={handleCloseAllClick}
+          onRegisterPopupOpen={handlePopupTypeRegisterOpen}
+        />
+        <PopupTypeRegister
+          isOpen={isPopupTypeRegisterOpen}
+          onClose={handleCloseAllClick}
+          onLoginPopupOpen={handlePopupTypeLoginOpen}
+        />
+        <PopupTypeSuccess
+          isOpen={isPopupTypeSuccessOpen}
+          isRegister={isRegister}
+          onClose={handleCloseAllClick}
+          onLoginPopupOpen={handlePopupTypeLoginOpen}
+        />
         <Switch>
           <Route exact path="/">
-            <Main open={open} handleOpenClick={handleOpenClick} name={name} loggedIn={loggedIn} handleCloseClick={handleCloseClick} />
+            <Main
+              isOpen={isMenuOpen}
+              onLoginPopupOpen={handlePopupTypeLoginOpen}
+              handleToggleMenuClick={handleToggleMenuClick}
+              name={name}
+              loggedIn={loggedIn}
+              onClose={handleCloseMenuClick}
+              handleLogOut={handleLogOut}
+            />
           </Route>
           <Route path="/saved-news">
-            <SavedNews open={open} handleOpenClick={handleOpenClick} name={name} loggedIn={loggedIn} />
+            <SavedNews
+              isOpen={isMenuOpen}
+              handleOpenMenuClick={handleToggleMenuClick}
+              name={name}
+              loggedIn={loggedIn} />
           </Route>
         </Switch>
         <Footer/>
-        {/*<PopupTypeRegister/>*/}
-        {/*<PopupTypeLogin/>*/}
-        {/*<PopupTypeSuccess/>*/}
       </div>
     </div>
   );

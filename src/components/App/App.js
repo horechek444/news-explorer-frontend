@@ -44,6 +44,10 @@ function App() {
     setLoggedIn(false);
   }
 
+  const handlePopupOpenDetector = () => {
+    return isPopupTypeLoginOpen || isPopupTypeRegisterOpen || isPopupTypeSuccessOpen;
+  }
+
   return (
     <div className="page">
       <div className="page__cover">
@@ -73,6 +77,7 @@ function App() {
               loggedIn={loggedIn}
               onClose={handleCloseMenuClick}
               handleLogOut={handleLogOut}
+              isPopupOpen={handlePopupOpenDetector}
             />
           </Route>
           <Route path="/saved-news">

@@ -15,6 +15,10 @@
         background-color: transparent;
     }
 
+    .toggle_closer {
+        display: none;
+    }
+
     .toggle::before {
         content: '';
         position: absolute;
@@ -45,18 +49,18 @@
         background-color: #1A1B22;
     }
 
-    .toggle_type_active {
+    .toggle_active {
         display: block;
         background-color: transparent;
     }
 
-    .toggle_type_active::before {
+    .toggle_active::before {
         transform: rotate(45deg) scale(1.25);
         top: 0;
         transition: top 0.2s linear, transform 0.2s ease-in 0.2s;
     }
 
-    .toggle_type_active::after {
+    .toggle_active::after {
         transform: rotate(-45deg) scale(1.25);
         top: 0;
         transition: top 0.2s linear, transform 0.2s ease-in 0.2s;

@@ -8,7 +8,7 @@ const MarkCart = () => {
   return (
     <>
       <button
-        className={location.pathname === '/' ? "button mark-cart__button" : "button mark-cart__button mark-cart__button_type_saved-news"}/>
+        className={location.pathname === '/saved-news' ? "button mark-cart__button mark-cart__button_active" : "button mark-cart__button"}/>
       <span className="mark-cart__message">Убрать из сохранённых</span>
     </>
   )

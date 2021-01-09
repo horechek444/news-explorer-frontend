@@ -6,10 +6,13 @@ const Login = ({name, loggedIn, onLoginPopupOpen, handleLogOut, onClose}) => {
   const location = useLocation();
 
   const handleClassName = () => {
-    if (loggedIn && location.pathname === '/') {
-      return `button login-button login-button_active login-button_type_main-login`
+    if (location.pathname === '/saved-news') {
+      return "button login-button login-button_active login-button_type_saved-news";
+    }
+    else if (loggedIn && location.pathname === '/') {
+      return "button login-button login-button_active login-button_type_main"
     } else {
-      return `button login-button login-button_type_main`
+      return "button login-button login-button_type_main"
     }
   }
 
@@ -25,7 +28,7 @@ const Login = ({name, loggedIn, onLoginPopupOpen, handleLogOut, onClose}) => {
 
   return (
     <button
-      className={location.pathname === '/saved-news' ? "button login-button login-button_active login-button_type_saved-news" : handleClassName()}
+      className={handleClassName()}
       onClick={handleLogin}>{loggedIn ? `${name}` : "Авторизоваться"}</button>
   )
 }

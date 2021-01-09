@@ -8,10 +8,10 @@ const Navigation = ({loggedIn, onClose}) => {
   return (
     <nav className="navigation">
       <div className="navigation__item navigation__item_active" onClick={onClose}>
-        <NavLink className={location.pathname === '/saved-news' ? "navigation__link navigation__link_type_saved-news" : "navigation__link navigation__link_type_main-active"} to="/">Главная</NavLink>
+        <NavLink className={location.pathname === '/saved-news' ? "navigation__link navigation__link_color_black" : "navigation__link navigation__link_underline_white"} to="/">Главная</NavLink>
       </div>
       <div className={loggedIn ? "navigation__item navigation__item_active" : "navigation__item"} onClick={onClose}>
-        <NavLink className={location.pathname === '/saved-news' ? "navigation__link navigation__link_type_saved-news-active" : "navigation__link navigation__link_type_main"} to="/saved-news">Сохранённые статьи</NavLink>
+        <NavLink className={location.pathname === '/saved-news' ? "navigation__link navigation__link_color_black navigation__link_underline_black" : "navigation__link navigation__link_type_main"} to="/saved-news">Сохранённые статьи</NavLink>
       </div>
     </nav>
   )

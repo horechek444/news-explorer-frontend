@@ -13,7 +13,7 @@ const Toggle = ({isOpen, handleToggleMenuClick, isPopupOpen}) => {
     } else if (location.pathname === '/' && isOpen) {
       return "toggle toggle_active";
     } else if (isPopupOpen()) {
-      return "toggle toggle_closer";
+      return "toggle toggle_hide";
     } else {
       return "toggle";
     }

@@ -12,7 +12,7 @@
     height: 40px;
 }
 
-.mark-cart__button_type_saved-news {
+.mark-cart__button_active {
     display: block;
 }
 
@@ -27,7 +27,7 @@
     line-height: 1.17;
     top: 24px;
     right: 69px;
-    padding: 13px 12px;
+    padding: 14px 12px;
 }
 
 .mark-cart__button:hover {

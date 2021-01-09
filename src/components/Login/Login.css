@@ -1,13 +1,3 @@
-.button {
-    box-sizing: border-box;
-    display: block;
-    cursor: pointer;
-    box-shadow: none;
-    font-weight: 500;
-    font-size: 18px;
-    line-height: 1.33;
-}
-
 .login-button {
     position: relative;
     top: 0;
@@ -15,10 +5,6 @@
     border-radius: 100px;
     background-color: transparent;
     padding: 11px 17px;
-}
-
-.login-button_active {
-    padding: 10px 42px 10px 12px;
 }
 
 .login-button_type_main {
@@ -30,16 +16,11 @@
     opacity: 0.5;
 }
 
-.login-button_type_main-login {
-    border: 1px solid #FFFFFF;
-    color: #FFFFFF;
+.login-button_active {
+    padding: 10px 42px 10px 12px;
 }
 
-.login-button_type_main-login:hover {
-    opacity: 0.5;
-}
-
-.login-button_type_main-login::after {
+.login-button_active::after {
     content: "";
     position: absolute;
     top: 13px;
@@ -84,7 +65,7 @@
         padding: 7px 42px 8px 11px;
     }
 
-    .login-button_type_main-login::after {
+    .login-button_active::after {
         top: 11px;
         right: 7px;
     }
@@ -110,7 +91,7 @@
         padding: 15px 42px 17px 11px;
     }
 
-    .login-button_type_main-login::after {
+    .login-button_active::after {
         top: 19px;
         right: 9px;
     }

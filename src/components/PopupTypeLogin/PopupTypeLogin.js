@@ -8,8 +8,8 @@ const PopupTypeLogin = ({isOpen, onClose, onRegisterPopupOpen}) => {
   return (
     <Popup name="login" title="Вход" isOpen={isOpen} onClose={onClose} onRegisterPopupOpen={onRegisterPopupOpen}>
       <PopupForm name="login" submit="Войти">
-        <PopupInput control="Email" name="email" type="email" placeholder="Введите почту"/>
-        <PopupInput control="Пароль" name="password" type="password" placeholder="Введите пароль"/>
+        <PopupInput control="Email" name="email" type="email" placeholder="Введите почту" required={true}/>
+        <PopupInput control="Пароль" name="password" type="password" placeholder="Введите пароль" required={true}/>
       </PopupForm>
     </Popup>
   )

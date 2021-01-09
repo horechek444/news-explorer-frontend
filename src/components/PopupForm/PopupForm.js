@@ -1,6 +1,6 @@
 import React from "react";
 import './PopupForm.css';
-import PopupError from "../PopupError/PopupError";
+import PopupSubmit from "../PopupSubmit/PopupSubmit";
 
 const PopupForm = ({name, children, submit}) => {
   return (
@@ -8,10 +8,7 @@ const PopupForm = ({name, children, submit}) => {
       <div className="popup__cover">
         {children}
       </div>
-      <div className="popup__submit-cover">
-        <PopupError server={true}/>
-        <input className="popup__submit popup__submit_type_disabled" type="submit" value={submit} name="submit"/>
-      </div>
+      <PopupSubmit submit={submit}/>
     </form>
   )
 }

@@ -13,9 +13,9 @@ const Header = ({name, isOpen, handleToggleMenuClick, loggedIn, onClose, onLogin
     if (location.pathname === '/saved-news') {
       return "header header_type_saved-news";
     } else if (location.pathname === '/saved-news' && isOpen) {
-      return "header header_type_active header_type_saved-news";
+      return "header header_type_overlay header_type_saved-news";
     } else if (location.pathname === '/' && isOpen) {
-      return "header header_type_active header_type_main";
+      return "header header_type_overlay header_type_main";
     } else {
       return "header header_type_main";
     }

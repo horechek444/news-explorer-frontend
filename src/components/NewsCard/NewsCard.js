@@ -3,13 +3,16 @@ import './NewsCard.css';
 import image from '../../images/480x272_1608802657186.jpeg'
 import MarkButton from "../MarkButton/MarkButton";
 import MarkCart from "../MarkCart/MarkCart";
+import {useLocation} from 'react-router-dom';
 
 const NewsCard = () => {
+  const location = useLocation();
+
   return (
     <li className="news-card">
       <MarkButton/>
-      {/*<MarkCart/>*/}
-      <img className="news-card__picture" src={image} alt=""/>
+      <MarkCart/>
+      <img className="news-card__picture" src={image} alt="Иллюстрация к новости"/>
       <div className="news-card__cover">
         <span className="news-card__date">2 августа, 2019</span>
         <h3 className="news-card__title">Национальное достояние – парки</h3>
@@ -17,7 +20,7 @@ const NewsCard = () => {
           складываться система национальных парков – охраняемых территорий, где и сегодня каждый может приобщиться к
           природе.</p>
         <span className="news-card__source">Дзен</span>
-        <span className="news-card__theme">Природа</span>
+        <span className={location.pathname === '/' ? "news-card__theme" : "news-card__theme news-card__theme_type_saved-news"}>Природа</span>
       </div>
     </li>
   )

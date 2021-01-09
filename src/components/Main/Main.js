@@ -25,8 +25,8 @@ const Main = ({isOpen, onLoginPopupOpen, handleToggleMenuClick, name, loggedIn, 
         <SearchForm isOpen={isOpen}/>
       </div>
       <main className="main">
-        {/*<Preloader/>*/}
-        {/*<NotFound/>*/}
+        <Preloader/>
+        <NotFound/>
         <NewsCardList/>
         <About/>
       </main>

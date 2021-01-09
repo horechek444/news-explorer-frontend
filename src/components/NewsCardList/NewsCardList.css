@@ -38,6 +38,10 @@
     width: 100%;
 }
 
+.news-cards__list_empty {
+
+}
+
 .news-cards__button {
     display: none;
     padding: 20px 84px;

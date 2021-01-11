@@ -12,6 +12,10 @@
     height: 40px;
 }
 
+.mark-button_type_saved-news {
+    background-image: url('../../images/trash.svg');
+}
+
 .mark-button_active {
     display: block;
 }
@@ -30,8 +34,17 @@
     padding: 14px 12px;
 }
 
+.mark-button__message_type_saved-news {
+    font-size: 12px;
+    line-height: 1.17;
+}
+
 .mark-button:hover {
     background-image: url('../../images/mark-hover.svg');
+}
+
+.mark-button_type_saved-news:hover {
+    background-image: url('../../images/trash-hover.svg');
 }
 
 .mark-button:hover + .mark-button__message {
@@ -40,6 +53,10 @@
 
 .mark-button:active {
     background-image: url('../../images/mark-active.svg');
+}
+
+.mark-button_type_saved-news:active {
+    background-image: url('../../images/trash-active.svg');
 }
 
 .mark-button:active + .mark-button__message {
@@ -52,11 +69,16 @@
         right: 8px;
     }
 
-    .mark-button__message {
-        top: 8px;
-        right: 53px;
-        font-size: 9px;
-        padding: 15px 12px;
+    .mark-button:hover {
+        background-image: url('../../images/mark.svg');
+    }
+
+    .mark-button_type_saved-news:hover {
+        background-image: url('../../images/trash.svg');
+    }
+
+    .mark-button:hover + .mark-button__message {
+        display: none;
     }
 }
 
@@ -64,12 +86,5 @@
     .mark-button {
         top: 16px;
         right: 16px;
-    }
-
-    .mark-button__message {
-        top: 16px;
-        right: 61px;
-        font-size: 10px;
-        padding: 14px 12px;
     }
 }

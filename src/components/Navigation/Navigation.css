@@ -83,10 +83,6 @@
         margin-right: 0;
     }
 
-    .navigation__item:hover {
-        opacity: 0.5;
-    }
-
     .navigation__link_type_main {
         color: #FFFFFF;
     }

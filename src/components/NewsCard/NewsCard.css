@@ -35,7 +35,7 @@
 
 .news-card__title {
     display: -webkit-box;
-    -webkit-line-clamp: 2;
+    -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     font-family: 'Roboto-Slab', Arial, sans-serif;
     font-weight: 400;
@@ -48,7 +48,7 @@
 
 .news-card__paragraph {
     display: -webkit-box;
-    -webkit-line-clamp: 5;
+    -webkit-line-clamp: var(--lines);
     -webkit-box-orient: vertical;
     font-size: 16px;
     line-height: 1.38;
@@ -99,6 +99,7 @@
 
     .news-card__paragraph {
         margin: 0 0 12px;
+        -webkit-line-clamp: calc(var(--lines) - 1);
     }
 
     .news-card__source {
@@ -131,7 +132,6 @@
 
     .news-card__paragraph {
         margin: 0 0 8px;
-        -webkit-line-clamp: 4;
     }
 
     .news-card__theme {

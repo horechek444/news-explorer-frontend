@@ -7,8 +7,9 @@ const MarkButton = () => {
 
   return (
     <>
-      <button className={location.pathname === '/' ? "button mark-button mark-button_active" : "button mark-button"}/>
-      <span className="mark-button__message">Войдите, чтобы сохранять статьи</span>
+      <button className={location.pathname === '/' ? "button mark-button mark-button_active" : "button mark-button mark-button_active mark-button_type_saved-news"}/>
+      <span
+        className={location.pathname === '/' ? "mark-button__message" : "mark-button__message mark-button__message_type_saved-news"}>{location.pathname === '/' ? "Войдите, чтобы сохранять статьи" : "Убрать из сохранённых"}</span>
     </>
   )
 }

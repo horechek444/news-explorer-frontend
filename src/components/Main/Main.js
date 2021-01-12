@@ -4,10 +4,9 @@ import Header from "../Header/Header";
 import SearchForm from "../SearchForm/SearchForm";
 import NewsCardList from "../NewsCardList/NewsCardList";
 import About from "../About/About";
-import Preloader from "../Preloader/Preloader";
-import NotFound from "../NotFound/NotFound";
+import Information from "../Information/Information";
 
-const Main = ({isOpen, onLoginPopupOpen, handleToggleMenuClick, name, loggedIn, onClose, handleLogOut, isPopupOpen}) => {
+const Main = ({isOpen, onLoginPopupOpen, handleToggleMenuClick, name, loggedIn, onClose, handleLogOut, isPopupOpen, loading}) => {
 
 
   return (
@@ -25,8 +24,7 @@ const Main = ({isOpen, onLoginPopupOpen, handleToggleMenuClick, name, loggedIn, 
         <SearchForm isOpen={isOpen}/>
       </div>
       <main className="main">
-        <Preloader/>
-        <NotFound/>
+        <Information loading={loading}/>
         <NewsCardList/>
         <About/>
       </main>

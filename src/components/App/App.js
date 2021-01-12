@@ -16,6 +16,7 @@ function App() {
   const [isPopupTypeSuccessOpen, setPopupTypeSuccessOpen] = React.useState(false);
   const [loggedIn, setLoggedIn] = React.useState(true);
   const [isRegister, setIsRegister] = React.useState(false);
+  const [isLoading, setIsLoading] = React.useState(false);
   const name = "Таня";
 
   const handleToggleMenuClick = () => {
@@ -61,7 +62,8 @@ function App() {
               loggedIn={loggedIn}
               onClose={handleCloseMenuClick}
               handleLogOut={handleLogOut}
-              isPopupOpen={handlePopupOpenDetector}/>
+              isPopupOpen={handlePopupOpenDetector}
+              loading={isLoading}/>
             <PopupTypeLogin
               isOpen={isPopupTypeLoginOpen}
               onClose={handleCloseAllClick}
@@ -84,7 +86,8 @@ function App() {
               name={name}
               loggedIn={loggedIn}
               onClose={handleCloseMenuClick}
-              handleLogOut={handleLogOut}/>
+              handleLogOut={handleLogOut}
+              loading={isLoading}/>
           </Route>
         </Switch>
         <Footer/>

@@ -1,7 +1,7 @@
 import React from "react";
 import './NewsCard.css';
 import image from '../../images/480x272_1608802657186.jpeg'
-import MarkButton from "../MarkButton/MarkButton";
+import CardButton from "../CardButton/CardButton";
 import {useLocation} from 'react-router-dom';
 
 const NewsCard = React.memo(() => {
@@ -20,7 +20,7 @@ const NewsCard = React.memo(() => {
 
   return (
     <li className="news-card">
-      <MarkButton/>
+      <CardButton/>
       <img className="news-card__picture" src={image} alt="Иллюстрация к новости"/>
       <div className="news-card__cover">
         <span className="news-card__date">2 августа, 2019</span>

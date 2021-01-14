@@ -8,6 +8,7 @@ import Footer from "../Footer/Footer";
 import PopupTypeRegister from "../PopupTypeRegister/PopupTypeRegister";
 import PopupTypeLogin from "../PopupTypeLogin/PopupTypeLogin";
 import PopupTypeSuccess from "../PopupTypeSuccess/PopupTypeSuccess";
+import newsApi from "../../utils/NewsApi";
 
 function App() {
   const [isMenuOpen, setMenuOpen] = React.useState(false);
@@ -18,6 +19,27 @@ function App() {
   const [isRegister, setIsRegister] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(false);
   const name = "Таня";
+
+  const dateNow = new Date();
+  const dateLast = new Date();
+  dateLast.setDate(dateNow.getDate() - 7);
+  const nowDate = dateNow.getFullYear().toString() + "-" + (dateNow.getMonth() + "1").toString() + "-" + ((dateNow.getDate().toString() > 10) ? dateNow.getDate().toString(): ("0" + dateNow.getDate().toString()));
+  const lastDate = (dateLast.getFullYear()).toString() + "-" + ((dateLast.getMonth() + "1").toString()) + "-" + ((dateLast.getDate() > 10) ? dateLast.getDate() : ("0" + dateLast.getDate()));
+
+  console.log(nowDate);
+  console.log(lastDate);
+
+  // const handleResult = (name, lastDate, nowDate) => {
+  //   newsApi.getNews(name, lastDate, nowDate)
+  //   .then ((data) => {
+  //     console.log(data);
+  //   })
+  //     .catch((err) => {
+  //       console.log(`${err}`);
+  //     })
+  // }
+  //
+  // handleResult();
 
   const handleToggleMenuClick = () => {
     setMenuOpen(!isMenuOpen);

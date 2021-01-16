@@ -24,18 +24,27 @@ function App() {
   const dateNow = new Date();
   const dateLast = new Date();
   dateLast.setDate(dateNow.getDate() - 7);
-  const nowDate = dateNow.getFullYear().toString() + "-" + (dateNow.getMonth() + "1").toString() + "-" + ((dateNow.getDate().toString() > 10) ? dateNow.getDate().toString(): ("0" + dateNow.getDate().toString()));
+  const nowDate = dateNow.getFullYear().toString() + "-" + (dateNow.getMonth() + "1").toString() + "-" + ((dateNow.getDate().toString() > 10) ? dateNow.getDate().toString() : ("0" + dateNow.getDate().toString()));
   const lastDate = (dateLast.getFullYear()).toString() + "-" + ((dateLast.getMonth() + "1").toString()) + "-" + ((dateLast.getDate() > 10) ? dateLast.getDate() : ("0" + dateLast.getDate()));
 
-  const getArticles = async (keyword, nowDate, lastDate) => {
-    try {
-      const [data] = await Promise.all([newsApi.getNews(keyword, nowDate, lastDate)]);
-      console.log(data.articles);
-      setArticles(data.articles);
-    } catch(err) {
+  // const getArticles = async (keyword, nowDate, lastDate) => {
+  //   try {
+  //     const [data] = await Promise.all([newsApi.getNews(keyword, nowDate, lastDate)]);
+  //     console.log(data);
+  //     setArticles(data.articles);
+  //   } catch(err) {
+  //     console.log(`${err}`);
+  //   }
+  // }
+
+  const getArticles = (keyword, nowDate, lastDate) => {
+    newsApi.getNews(keyword, nowDate, lastDate)
+      .then((data) => {
+        setArticles(data.articles);
+      }).catch((err) => {
       console.log(`${err}`);
-    }
-  }
+    });
+  };
 
   React.useEffect(() => getArticles("Природа", lastDate, nowDate), [lastDate, nowDate]);
 
@@ -108,7 +117,8 @@ function App() {
               loggedIn={loggedIn}
               onClose={handleCloseMenuClick}
               handleLogOut={handleLogOut}
-              loading={isLoading}/>
+              loading={isLoading}
+              articles={articles}/>
           </Route>
         </Switch>
         <Footer/>

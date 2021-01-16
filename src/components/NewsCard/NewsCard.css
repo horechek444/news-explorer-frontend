@@ -15,7 +15,7 @@
 .news-card__picture {
     max-width: 100%;
     width: 100%;
-    min-height: 272px;
+    height: 272px;
     display: block;
     object-fit: cover;
 }
@@ -58,6 +58,9 @@
 }
 
 .news-card__source {
+    position: absolute;
+    left: 24px;
+    bottom: 24px;
     text-transform: uppercase;
     color: rgba(182, 188, 191, 1);
     font-family: Roboto-Slab, Arial,sans-serif;
@@ -84,7 +87,7 @@
 
 @media all and (max-width: 780px) {
     .news-card__picture {
-        min-height: 150px;
+        height: 150px;
     }
 
     .news-card__cover {
@@ -105,6 +108,8 @@
     .news-card__source {
         font-size: 16px;
         line-height: 1.25;
+        left: 16px;
+        bottom: 16px;
     }
 
     .news-card__theme {
@@ -115,7 +120,7 @@
 
 @media all and (max-width: 570px) {
     .news-card__picture {
-        min-height: 196px;
+        height: 196px;
     }
 
     .news-card__cover {

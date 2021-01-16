@@ -28,14 +28,16 @@ const NewsCard = ({article}) => {
       }
     } else if (window.innerWidth <= 570) {
       if (titleHeight === 27) {
-        return {"--lines": "6"};
-      } else if (titleHeight === 54) {
         return {"--lines": "5"};
-      } else if (titleHeight === 81) {
+      } else if (titleHeight === 54) {
         return {"--lines": "4"};
+      } else if (titleHeight === 81) {
+        return {"--lines": "3"};
       }
     }
   }
+
+  React.useEffect(() => handleLines(), [handleLines]);
 
   const handleDate = (date) => {
     const parsedDate = new Date(date.slice(0, 10).split('-'));
@@ -50,13 +52,11 @@ const NewsCard = ({article}) => {
   return (
     <li className="news-card">
       <CardButton/>
-      <img className="news-card__picture" src={article.urlToImage} alt="Иллюстрация к новости"/>
+      <img className="news-card__picture" src={article.urlToImage} alt={article.title}/>
       <div className="news-card__cover">
         <span className="news-card__date">{handleDate(article.publishedAt)}</span>
         <h3 ref={titleHeightRef} className="news-card__title">{article.title}</h3>
-        <p className="news-card__paragraph" style={handleLines()}>В 2016 году Америка отмечала важный юбилей: сто лет
-          назад здесь начала складываться система национальных парков – охраняемых территорий, где и сегодня каждый
-          может приобщиться к природе.</p>
+        <p className="news-card__paragraph" style={handleLines()}>{article.description}</p>
         <span className="news-card__source">{article.source.name}</span>
         <span
           className={location.pathname === '/' ? "news-card__theme" : "news-card__theme news-card__theme_type_saved-news"}>Природа</span>

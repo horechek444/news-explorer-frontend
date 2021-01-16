@@ -16,6 +16,7 @@ function App() {
   const [isPopupTypeRegisterOpen, setPopupTypeRegisterOpen] = React.useState(false);
   const [isPopupTypeSuccessOpen, setPopupTypeSuccessOpen] = React.useState(false);
   const [loggedIn, setLoggedIn] = React.useState(true);
+  const [articles, setArticles] = React.useState([]);
   const [isRegister, setIsRegister] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(false);
   const name = "Таня";
@@ -26,20 +27,17 @@ function App() {
   const nowDate = dateNow.getFullYear().toString() + "-" + (dateNow.getMonth() + "1").toString() + "-" + ((dateNow.getDate().toString() > 10) ? dateNow.getDate().toString(): ("0" + dateNow.getDate().toString()));
   const lastDate = (dateLast.getFullYear()).toString() + "-" + ((dateLast.getMonth() + "1").toString()) + "-" + ((dateLast.getDate() > 10) ? dateLast.getDate() : ("0" + dateLast.getDate()));
 
-  console.log(nowDate);
-  console.log(lastDate);
+  const getArticles = async (keyword, nowDate, lastDate) => {
+    try {
+      const [data] = await Promise.all([newsApi.getNews(keyword, nowDate, lastDate)]);
+      console.log(data.articles);
+      setArticles(data.articles);
+    } catch(err) {
+      console.log(`${err}`);
+    }
+  }
 
-  // const handleResult = (name, lastDate, nowDate) => {
-  //   newsApi.getNews(name, lastDate, nowDate)
-  //   .then ((data) => {
-  //     console.log(data);
-  //   })
-  //     .catch((err) => {
-  //       console.log(`${err}`);
-  //     })
-  // }
-  //
-  // handleResult();
+  React.useEffect(() => getArticles("Природа", lastDate, nowDate), [lastDate, nowDate]);
 
   const handleToggleMenuClick = () => {
     setMenuOpen(!isMenuOpen);
@@ -85,7 +83,8 @@ function App() {
               onClose={handleCloseMenuClick}
               handleLogOut={handleLogOut}
               isPopupOpen={handlePopupOpenDetector}
-              loading={isLoading}/>
+              loading={isLoading}
+              articles={articles}/>
             <PopupTypeLogin
               isOpen={isPopupTypeLoginOpen}
               onClose={handleCloseAllClick}

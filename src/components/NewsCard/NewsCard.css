@@ -99,7 +99,7 @@
 
     .news-card__paragraph {
         margin: 0 0 12px;
-        -webkit-line-clamp: calc(var(--lines) - 1);
+        -webkit-line-clamp: var(--lines);
     }
 
     .news-card__source {

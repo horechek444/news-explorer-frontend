@@ -6,7 +6,7 @@ import NewsCardList from "../NewsCardList/NewsCardList";
 import About from "../About/About";
 import Information from "../Information/Information";
 
-const Main = ({isOpen, onLoginPopupOpen, handleToggleMenuClick, name, loggedIn, onClose, handleLogOut, isPopupOpen, loading}) => {
+const Main = ({isOpen, onLoginPopupOpen, handleToggleMenuClick, name, loggedIn, onClose, handleLogOut, isPopupOpen, loading, articles}) => {
 
 
   return (
@@ -25,7 +25,7 @@ const Main = ({isOpen, onLoginPopupOpen, handleToggleMenuClick, name, loggedIn, 
       </div>
       <main className="main">
         <Information loading={loading}/>
-        <NewsCardList/>
+        <NewsCardList articles={articles}/>
         <About/>
       </main>
     </>

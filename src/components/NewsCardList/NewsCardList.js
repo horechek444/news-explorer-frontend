@@ -3,11 +3,21 @@ import NewsCard from "../NewsCard/NewsCard";
 import './NewsCardList.css';
 import {useLocation} from 'react-router-dom';
 
-const NewsCardList = ({articles}) => {
+const NewsCardList = ({articles, showResults}) => {
   const location = useLocation();
 
+  const handleShowResults = () => {
+    if (showResults) {
+      return "news-cards news-cards_active";
+    } else if (location.pathname === '/saved-news') {
+      return "news-cards news-cards_type_saved-news news-cards_active";
+    } else {
+      return "news-cards";
+    }
+  }
+
   return (
-    <section className={location.pathname === '/saved-news' ? "news-cards news-cards_type_saved-news" : "news-cards"} >
+    <section className={handleShowResults()} >
       <h2 className={location.pathname === '/saved-news' ? "news-cards__title" : "news-cards__title news-cards__title_active"}>Результаты поиска</h2>
       <ul className="news-cards__list">
         {articles.map((article, index) => <NewsCard key={index} article={article}/>)}

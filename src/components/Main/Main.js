@@ -6,9 +6,18 @@ import NewsCardList from "../NewsCardList/NewsCardList";
 import About from "../About/About";
 import Information from "../Information/Information";
 
-const Main = ({isOpen, onLoginPopupOpen, handleToggleMenuClick, name, loggedIn, onClose, handleLogOut, isPopupOpen, loading, articles}) => {
-
-
+const Main = ({isOpen,
+                onLoginPopupOpen,
+                handleToggleMenuClick,
+                name, loggedIn, onClose,
+                handleLogOut, isPopupOpen,
+                loading, articles,
+                handleSearchInputChange,
+                handleSearchSubmit,
+                searchInputValue,
+                searchError,
+                showResults,
+                noResults}) => {
   return (
     <>
       <div className="header-search-wrapper">
@@ -21,11 +30,21 @@ const Main = ({isOpen, onLoginPopupOpen, handleToggleMenuClick, name, loggedIn, 
           onLoginPopupOpen={onLoginPopupOpen}
           handleLogOut={handleLogOut}
           isPopupOpen={isPopupOpen}/>
-        <SearchForm isOpen={isOpen}/>
+        <SearchForm
+          isOpen={isOpen}
+          handleSearchInputChange={handleSearchInputChange}
+          handleSearchSubmit={handleSearchSubmit}
+          searchInputValue={searchInputValue}
+          error={searchError}
+        />
       </div>
       <main className="main">
-        <Information loading={loading}/>
-        <NewsCardList articles={articles}/>
+        <Information loading={loading}
+                     noResults={noResults}/>
+        <NewsCardList
+          articles={articles}
+          showResults={showResults}
+        />
         <About/>
       </main>
     </>

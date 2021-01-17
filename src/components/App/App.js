@@ -9,6 +9,7 @@ import PopupTypeRegister from "../PopupTypeRegister/PopupTypeRegister";
 import PopupTypeLogin from "../PopupTypeLogin/PopupTypeLogin";
 import PopupTypeSuccess from "../PopupTypeSuccess/PopupTypeSuccess";
 import newsApi from "../../utils/NewsApi";
+import {lastDate, nowDate, setArticlesData, getArticlesData} from "../../utils/utils";
 
 function App() {
   const [isMenuOpen, setMenuOpen] = React.useState(false);
@@ -20,33 +21,58 @@ function App() {
   const [isRegister, setIsRegister] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(false);
   const name = "Таня";
-
-  const dateNow = new Date();
-  const dateLast = new Date();
-  dateLast.setDate(dateNow.getDate() - 7);
-  const nowDate = dateNow.getFullYear().toString() + "-" + (dateNow.getMonth() + "1").toString() + "-" + ((dateNow.getDate().toString() > 10) ? dateNow.getDate().toString() : ("0" + dateNow.getDate().toString()));
-  const lastDate = (dateLast.getFullYear()).toString() + "-" + ((dateLast.getMonth() + "1").toString()) + "-" + ((dateLast.getDate() > 10) ? dateLast.getDate() : ("0" + dateLast.getDate()));
-
-  // const getArticles = async (keyword, nowDate, lastDate) => {
-  //   try {
-  //     const [data] = await Promise.all([newsApi.getNews(keyword, nowDate, lastDate)]);
-  //     console.log(data);
-  //     setArticles(data.articles);
-  //   } catch(err) {
-  //     console.log(`${err}`);
-  //   }
-  // }
+  const [searchInputValue, setSearchInputValue] = React.useState('');
+  const [searchError, setSearchError] = React.useState("error");
+  const [showResults, setShowResults] = React.useState(false);
+  const [noResults, setNoResults] = React.useState(false);
 
   const getArticles = (keyword, nowDate, lastDate) => {
+    setIsLoading(true);
     newsApi.getNews(keyword, nowDate, lastDate)
       .then((data) => {
         setArticles(data.articles);
-      }).catch((err) => {
-      console.log(`${err}`);
-    });
+        setArticlesData(data.articles);
+        console.log(data.articles);
+      })
+      .catch((err) => {
+        console.log(`${err}`);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      })
   };
 
-  React.useEffect(() => getArticles("Природа", lastDate, nowDate), [lastDate, nowDate]);
+  const handleSearchInputChange = (event) => {
+    setSearchInputValue(event.target.value);
+    setSearchError("error");
+  };
+
+  const handleSearchSubmit = (event) => {
+    event.preventDefault();
+    if (!searchInputValue) {
+      setSearchError("error error_type_search error_active");
+      setShowResults(false);
+    } else {
+      getArticles(searchInputValue, lastDate, nowDate);
+      setSearchInputValue('');
+      dataCheck();
+    }
+  };
+
+  const dataCheck = () => {
+    const articles_data = getArticlesData();
+    if (!articles_data) {
+      setShowResults(false);
+      setNoResults(true);
+    } else {
+      setShowResults(true);
+      setNoResults(false);
+    }
+  }
+
+  React.useEffect(() => {
+    dataCheck();
+  }, []);
 
   const handleToggleMenuClick = () => {
     setMenuOpen(!isMenuOpen);
@@ -93,7 +119,14 @@ function App() {
               handleLogOut={handleLogOut}
               isPopupOpen={handlePopupOpenDetector}
               loading={isLoading}
-              articles={articles}/>
+              articles={articles}
+              handleSearchSubmit={handleSearchSubmit}
+              handleSearchInputChange={handleSearchInputChange}
+              searchInputValue={searchInputValue}
+              searchError={searchError}
+              showResults={showResults}
+              noResults={noResults}
+            />
             <PopupTypeLogin
               isOpen={isPopupTypeLoginOpen}
               onClose={handleCloseAllClick}
@@ -118,7 +151,8 @@ function App() {
               onClose={handleCloseMenuClick}
               handleLogOut={handleLogOut}
               loading={isLoading}
-              articles={articles}/>
+              articles={articles}
+            />
           </Route>
         </Switch>
         <Footer/>

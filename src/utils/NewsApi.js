@@ -5,7 +5,7 @@ class NewsApi {
   }
 
   getNews(keyword, nowDate, lastDate) {
-    return fetch(`${this.baseUrl}everything?q=${keyword}&language=ru&from=${lastDate}&to=${nowDate}&sortBy=publishedAt&pageSize=100&apiKey=ca20ac7265324ecfaae3decfad672dbb`, {
+    return fetch(`${this.baseUrl}?q=${keyword}&language=ru&from=${lastDate}&to=${nowDate}&sortBy=publishedAt&pageSize=100&apiKey=ca20ac7265324ecfaae3decfad672dbb`, {
       headers: this.headers,
     })
       .then(res => {
@@ -18,9 +18,9 @@ class NewsApi {
 }
 
 const newsApi = new NewsApi({
-  baseUrl: 'http://newsapi.org/v2/',
+  baseUrl: 'https://nomoreparties.co/news/v2/everything',
   headers: {
-    'Content-Type': 'multipart/form-data',
+    'Content-Type': 'application/json',
   },
 })
 

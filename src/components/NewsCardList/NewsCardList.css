@@ -1,9 +1,13 @@
 .news-cards {
-    display: flex;
+    display: none;
     flex-direction: column;
     align-items: center;
     padding: 80px 104px;
     background-color: #F5F6F7;
+}
+
+.news-cards_active {
+    display: flex;
 }
 
 .news-cards_type_saved-news {

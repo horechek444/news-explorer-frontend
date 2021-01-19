@@ -16,8 +16,8 @@ const Main = ({isOpen,
                 handleSearchSubmit,
                 searchInputValue,
                 searchError,
-                showResults,
-                noResults}) => {
+                getNewsError
+                }) => {
   return (
     <>
       <div className="header-search-wrapper">
@@ -39,12 +39,7 @@ const Main = ({isOpen,
         />
       </div>
       <main className="main">
-        <Information loading={loading}
-                     noResults={noResults}/>
-        <NewsCardList
-          articles={articles}
-          showResults={showResults}
-        />
+        {!loading && articles && articles.length ? <NewsCardList articles={articles} getNewsError={getNewsError} loading={loading}/> : <Information articles={articles} loading={loading}/>}
         <About/>
       </main>
     </>

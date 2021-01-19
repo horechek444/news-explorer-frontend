@@ -9,7 +9,7 @@ import PopupTypeRegister from "../PopupTypeRegister/PopupTypeRegister";
 import PopupTypeLogin from "../PopupTypeLogin/PopupTypeLogin";
 import PopupTypeSuccess from "../PopupTypeSuccess/PopupTypeSuccess";
 import newsApi from "../../utils/NewsApi";
-import {lastDate, nowDate, setArticlesData, getArticlesData} from "../../utils/utils";
+import {lastDate, nowDate, setArticlesData} from "../../utils/utils";
 
 function App() {
   const [isMenuOpen, setMenuOpen] = React.useState(false);
@@ -17,14 +17,13 @@ function App() {
   const [isPopupTypeRegisterOpen, setPopupTypeRegisterOpen] = React.useState(false);
   const [isPopupTypeSuccessOpen, setPopupTypeSuccessOpen] = React.useState(false);
   const [loggedIn, setLoggedIn] = React.useState(true);
-  const [articles, setArticles] = React.useState([]);
+  const [articles, setArticles] = React.useState(null);
   const [isRegister, setIsRegister] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(false);
   const name = "Таня";
   const [searchInputValue, setSearchInputValue] = React.useState('');
   const [searchError, setSearchError] = React.useState("error");
-  const [showResults, setShowResults] = React.useState(false);
-  const [noResults, setNoResults] = React.useState(false);
+  const [newsError, setNewsError] = React.useState('');
 
   const getArticles = (keyword, nowDate, lastDate) => {
     setIsLoading(true);
@@ -32,15 +31,15 @@ function App() {
       .then((data) => {
         setArticles(data.articles);
         setArticlesData(data.articles);
-        console.log(data.articles);
       })
       .catch((err) => {
+        setNewsError(`${err}`);
         console.log(`${err}`);
       })
       .finally(() => {
         setIsLoading(false);
       })
-  };
+  }
 
   const handleSearchInputChange = (event) => {
     setSearchInputValue(event.target.value);
@@ -51,28 +50,11 @@ function App() {
     event.preventDefault();
     if (!searchInputValue) {
       setSearchError("error error_type_search error_active");
-      setShowResults(false);
     } else {
       getArticles(searchInputValue, lastDate, nowDate);
       setSearchInputValue('');
-      dataCheck();
-    }
-  };
-
-  const dataCheck = () => {
-    const articles_data = getArticlesData();
-    if (!articles_data) {
-      setShowResults(false);
-      setNoResults(true);
-    } else {
-      setShowResults(true);
-      setNoResults(false);
     }
   }
-
-  React.useEffect(() => {
-    dataCheck();
-  }, []);
 
   const handleToggleMenuClick = () => {
     setMenuOpen(!isMenuOpen);
@@ -124,8 +106,7 @@ function App() {
               handleSearchInputChange={handleSearchInputChange}
               searchInputValue={searchInputValue}
               searchError={searchError}
-              showResults={showResults}
-              noResults={noResults}
+              getNewsError={newsError}
             />
             <PopupTypeLogin
               isOpen={isPopupTypeLoginOpen}

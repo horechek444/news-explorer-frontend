@@ -3,7 +3,7 @@ import './NewsCard.css';
 import CardButton from "../CardButton/CardButton";
 import {useLocation} from 'react-router-dom';
 
-const NewsCard = ({article}) => {
+const NewsCard = ({article, index, count}) => {
   const location = useLocation();
   const titleHeightRef = React.useRef("");
 
@@ -50,7 +50,7 @@ const NewsCard = ({article}) => {
   }
 
   return (
-    <li className="news-card">
+    <li className={index <= count ? "news-card news-card_active" : "news-card"}>
       <CardButton/>
       <img className="news-card__picture" src={article.urlToImage} alt={article.title}/>
       <div className="news-card__cover">

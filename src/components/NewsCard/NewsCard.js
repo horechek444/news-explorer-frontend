@@ -5,39 +5,27 @@ import {useLocation} from 'react-router-dom';
 
 const NewsCard = ({article, index, count}) => {
   const location = useLocation();
-  const titleHeightRef = React.useRef("");
 
-  const titleHeight = ((titleHeightRef.current && titleHeightRef.current.offsetHeight) || 0)
+  const titleHeightRef = React.useRef("");
+  const [quantity, setQuantity] = React.useState(4);
+
+  React.useEffect(() => {
+    const titleHeight = ((titleHeightRef.current && titleHeightRef.current.offsetHeight) || 0);
+
+    if (titleHeight >= 24 && titleHeight <= 29) {
+      setQuantity(6);
+    }
+    if (titleHeight >= 48 && titleHeight <= 58) {
+      setQuantity(5);
+    }
+    if (titleHeight >= 72 && titleHeight <= 87) {
+      setQuantity(4);
+    }
+  }, [quantity]);
 
   const handleLines = () => {
-    if (window.innerWidth >= 781) {
-      if (titleHeight === 29) {
-        return {"--lines": "6"};
-      } else if (titleHeight === 58) {
-        return {"--lines": "5"};
-      } else if (titleHeight === 87) {
-        return {"--lines": "4"};
-      }
-    } else if (window.innerWidth >= 571 && window.innerWidth <= 780) {
-      if (titleHeight === 24) {
-        return {"--lines": "6"};
-      }else if (titleHeight === 48) {
-        return {"--lines": "5"};
-      } else if (titleHeight === 72) {
-        return {"--lines": "4"};
-      }
-    } else if (window.innerWidth <= 570) {
-      if (titleHeight === 27) {
-        return {"--lines": "5"};
-      } else if (titleHeight === 54) {
-        return {"--lines": "4"};
-      } else if (titleHeight === 81) {
-        return {"--lines": "3"};
-      }
-    }
+    return {"--lines": `${quantity}`};
   }
-
-  React.useEffect(() => handleLines(), [handleLines]);
 
   const handleDate = (date) => {
     const parsedDate = new Date(date.slice(0, 10).split('-'));

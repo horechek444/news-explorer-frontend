@@ -6,10 +6,10 @@ export const nowDate = dateNow.getFullYear().toString() + "-" + (dateNow.getMont
 export const lastDate = (dateLast.getFullYear()).toString() + "-" + ((dateLast.getMonth() + "1").toString()) + "-" + ((dateLast.getDate() > 10) ? dateLast.getDate() : ("0" + dateLast.getDate()));
 
 // localStorage для данных
-const ARTICLES_DATA = 'articles_data';
+const ARTICLES_DATA = 'data';
 
-export const setArticlesData = (data) => localStorage.setItem(ARTICLES_DATA, data);
+export const setArticlesData = (data) => localStorage.setItem(ARTICLES_DATA, JSON.stringify(data));
 
-export const getArticlesData = () => localStorage.getItem(ARTICLES_DATA);
+export const getArticlesData = () => JSON.parse(localStorage.getItem(ARTICLES_DATA));
 
 export const removeArticlesData = () => localStorage.removeItem(ARTICLES_DATA);

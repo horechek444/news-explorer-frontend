@@ -1,5 +1,5 @@
 .card-button {
-    display: none;
+    display: block;
     position: absolute;
     background-image: url('../../images/mark.svg');
     background-position: center;
@@ -14,10 +14,6 @@
 
 .card-button_type_saved-news {
     background-image: url('../../images/trash.svg');
-}
-
-.card-button_active {
-    display: block;
 }
 
 .card-button__message {
@@ -39,6 +35,10 @@
     line-height: 1.17;
 }
 
+.card-button:disabled {
+    background-color: white;
+}
+
 .card-button:hover {
     background-image: url('../../images/mark-hover.svg');
 }
@@ -51,8 +51,24 @@
     display: block;
 }
 
+.card-button:hover + .card-button__message_disabled {
+    display: none;
+}
+
 .card-button:active {
     background-image: url('../../images/mark-active.svg');
+}
+
+.card-button_clicked {
+    background-image: url('../../images/mark-active.svg');
+}
+
+.card-button_clicked:hover {
+    background-image: url('../../images/mark-active.svg');
+}
+
+.card-button_clicked:active{
+    background-image: url('../../images/mark-hover.svg');
 }
 
 .card-button_type_saved-news:active {

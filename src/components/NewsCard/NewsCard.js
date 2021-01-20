@@ -3,11 +3,16 @@ import './NewsCard.css';
 import CardButton from "../CardButton/CardButton";
 import {useLocation} from 'react-router-dom';
 
-const NewsCard = ({article, index, count}) => {
+const NewsCard = ({article, index, count, loggedIn}) => {
   const location = useLocation();
+
 
   const titleHeightRef = React.useRef("");
   const [quantity, setQuantity] = React.useState(4);
+
+  React.useEffect (() => {
+    return titleHeightRef.current.offsetHeight;
+  }, [])
 
   React.useEffect(() => {
     const titleHeight = ((titleHeightRef.current && titleHeightRef.current.offsetHeight) || 0);
@@ -39,7 +44,7 @@ const NewsCard = ({article, index, count}) => {
 
   return (
     <li className={index <= count ? "news-card news-card_active" : "news-card"}>
-      <CardButton/>
+      <CardButton loggedIn={loggedIn}/>
       <img className="news-card__picture" src={article.urlToImage} alt={article.title}/>
       <div className="news-card__cover">
         <span className="news-card__date">{handleDate(article.publishedAt)}</span>

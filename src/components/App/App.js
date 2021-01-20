@@ -9,7 +9,7 @@ import PopupTypeRegister from "../PopupTypeRegister/PopupTypeRegister";
 import PopupTypeLogin from "../PopupTypeLogin/PopupTypeLogin";
 import PopupTypeSuccess from "../PopupTypeSuccess/PopupTypeSuccess";
 import newsApi from "../../utils/NewsApi";
-import {lastDate, nowDate, setArticlesData} from "../../utils/utils";
+import {lastDate, nowDate, setArticlesData, getArticlesData} from "../../utils/utils";
 
 function App() {
   const [isMenuOpen, setMenuOpen] = React.useState(false);
@@ -17,13 +17,13 @@ function App() {
   const [isPopupTypeRegisterOpen, setPopupTypeRegisterOpen] = React.useState(false);
   const [isPopupTypeSuccessOpen, setPopupTypeSuccessOpen] = React.useState(false);
   const [loggedIn, setLoggedIn] = React.useState(true);
-  const [articles, setArticles] = React.useState(null);
   const [isRegister, setIsRegister] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(false);
   const name = "Таня";
   const [searchInputValue, setSearchInputValue] = React.useState('');
   const [searchError, setSearchError] = React.useState("error");
   const [newsError, setNewsError] = React.useState('');
+  const [articles, setArticles] = React.useState(getArticlesData() ? getArticlesData() : null );
 
   const getArticles = (keyword, nowDate, lastDate) => {
     setIsLoading(true);
@@ -64,7 +64,7 @@ function App() {
     setMenuOpen(false);
   }
 
-  const handleCloseAllClick = () => {
+  const handleCloseAllPopups = () => {
     setPopupTypeLoginOpen(false);
     setPopupTypeRegisterOpen(false);
     setPopupTypeSuccessOpen(false);
@@ -110,16 +110,18 @@ function App() {
             />
             <PopupTypeLogin
               isOpen={isPopupTypeLoginOpen}
-              onClose={handleCloseAllClick}
-              onRegisterPopupOpen={handlePopupTypeRegisterOpen}/>
+              onClose={handleCloseAllPopups}
+              onRegisterPopupOpen={handlePopupTypeRegisterOpen}
+              loading={isLoading}/>
             <PopupTypeRegister
               isOpen={isPopupTypeRegisterOpen}
-              onClose={handleCloseAllClick}
-              onLoginPopupOpen={handlePopupTypeLoginOpen}/>
+              onClose={handleCloseAllPopups}
+              onLoginPopupOpen={handlePopupTypeLoginOpen}
+              loading={isLoading}/>
             <PopupTypeSuccess
               isOpen={isPopupTypeSuccessOpen}
               isRegister={isRegister}
-              onClose={handleCloseAllClick}
+              onClose={handleCloseAllPopups}
               onLoginPopupOpen={handlePopupTypeLoginOpen}/>
           </Route>
           <Route path="/saved-news">

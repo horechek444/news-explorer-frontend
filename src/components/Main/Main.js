@@ -39,7 +39,7 @@ const Main = ({isOpen,
         />
       </div>
       <main className="main">
-        {!loading && articles && articles.length ? <NewsCardList articles={articles} getNewsError={getNewsError} loading={loading}/> : <Information articles={articles} loading={loading}/>}
+        {!loading && articles && articles.length ? <NewsCardList articles={articles} getNewsError={getNewsError} loading={loading} loggedIn={loggedIn}/> : <Information articles={articles} loading={loading}/>}
         <About/>
       </main>
     </>

@@ -10,13 +10,12 @@ const Main = ({isOpen,
                 onLoginPopupOpen,
                 handleToggleMenuClick,
                 name, loggedIn, onClose,
-                handleLogOut, isPopupOpen,
-                loading, articles,
+                isPopupOpen, loading, articles,
                 handleSearchInputChange,
                 handleSearchSubmit,
                 searchInputValue,
-                searchError,
-                getNewsError
+                searchError, getNewsError,
+                onSignOut, onRegisterPopupOpen
                 }) => {
   return (
     <>
@@ -28,8 +27,9 @@ const Main = ({isOpen,
           loggedIn={loggedIn}
           onClose={onClose}
           onLoginPopupOpen={onLoginPopupOpen}
-          handleLogOut={handleLogOut}
-          isPopupOpen={isPopupOpen}/>
+          isPopupOpen={isPopupOpen}
+          onSignOut={onSignOut}
+        />
         <SearchForm
           isOpen={isOpen}
           handleSearchInputChange={handleSearchInputChange}
@@ -39,7 +39,7 @@ const Main = ({isOpen,
         />
       </div>
       <main className="main">
-        {!loading && articles && articles.length ? <NewsCardList articles={articles} getNewsError={getNewsError} loading={loading} loggedIn={loggedIn}/> : <Information articles={articles} loading={loading}/>}
+        {!loading && articles && articles.length ? <NewsCardList articles={articles} getNewsError={getNewsError} loading={loading} loggedIn={loggedIn} onRegisterPopupOpen={onRegisterPopupOpen}/> : <Information articles={articles} loading={loading}/>}
         <About/>
       </main>
     </>

@@ -2,11 +2,11 @@ import React from "react";
 import './Header.css';
 import Logo from '../Logo/Logo';
 import Navigation from '../Navigation/Navigation';
-import Login from '../Login/Login';
+import SignOut from '../SignOut/SignOut';
 import {useLocation} from 'react-router-dom';
 import Toggle from "../Toggle/Toggle";
 
-const Header = ({name, isOpen, handleToggleMenuClick, loggedIn, onClose, onLoginPopupOpen, handleLogOut, isPopupOpen}) => {
+const Header = ({name, isOpen, handleToggleMenuClick, loggedIn, onClose, onLoginPopupOpen, isPopupOpen, onSignOut}) => {
   const location = useLocation();
 
   const handleHeaderClassNameClick = () => {
@@ -50,7 +50,7 @@ const Header = ({name, isOpen, handleToggleMenuClick, loggedIn, onClose, onLogin
         </div>
         <div className={handleCoverClassNameClick()}>
           <Navigation loggedIn={loggedIn} onClose={onClose}/>
-          <Login name={name} loggedIn={loggedIn} onLoginPopupOpen={onLoginPopupOpen} handleLogOut={handleLogOut} onClose={onClose}/>
+          <SignOut name={name} loggedIn={loggedIn} onLoginPopupOpen={onLoginPopupOpen} onClose={onClose} onSignOut={onSignOut}/>
         </div>
       </div>
     </header>

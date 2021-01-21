@@ -23,7 +23,7 @@
 }
 
 .error_type_server {
-    opacity: 1;
+    opacity: 0;
     display: block;
     top: -20px;
     left: 0;

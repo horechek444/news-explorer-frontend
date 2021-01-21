@@ -1,15 +1,11 @@
 .news-card {
     position: relative;
-    display: none;
+    display: flex;
     flex-direction: column;
     background-color: white;
     border-radius: 16px;
     overflow: hidden;
     cursor: pointer;
-}
-
-.news-card_active {
-    display: flex;
 }
 
 .news-card:hover {
@@ -53,7 +49,7 @@
 
 .news-card__paragraph {
     display: -webkit-box;
-    -webkit-line-clamp: var(--lines, 4);
+    -webkit-line-clamp: var(--lines);
     -webkit-box-orient: vertical;
     font-size: 16px;
     line-height: 1.38;

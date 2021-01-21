@@ -1,4 +1,5 @@
 import {getToken} from "./token";
+import {BASE_URL} from '../auth';
 
 class MainApi {
   constructor({baseUrl, headers}) {
@@ -76,7 +77,7 @@ class MainApi {
 }
 
 const mainApi = new MainApi({
-  baseUrl: 'https://api.horechek-news.students.nomoredomains.work',
+  baseUrl: BASE_URL,
   headers: {
     'Content-Type': 'application/json',
   }

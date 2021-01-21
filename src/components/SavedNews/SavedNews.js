@@ -4,7 +4,7 @@ import NewsCardList from "../NewsCardList/NewsCardList";
 import SavedNewsHeader from "../SavedNewsHeader/SavedNewsHeader";
 import Information from "../Information/Information";
 
-const SavedNews = ({isOpen, handleToggleMenuClick, name, onLoginPopupOpen, loggedIn, onClose, handleLogOut, loading, articles}) => {
+const SavedNews = ({isOpen, handleToggleMenuClick, name, onLoginPopupOpen, loggedIn, onClose, onSignOut, loading, articles}) => {
   return (
     <>
       <Header
@@ -14,7 +14,7 @@ const SavedNews = ({isOpen, handleToggleMenuClick, name, onLoginPopupOpen, logge
         loggedIn={loggedIn}
         onClose={onClose}
         onLoginPopupOpen={onLoginPopupOpen}
-        handleLogOut={handleLogOut}
+        onSignOut={onSignOut}
       />
       <SavedNewsHeader name={name}/>
       <Information loading={loading}/>

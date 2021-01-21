@@ -1,25 +1,25 @@
 import React from "react";
-import './Login.css';
+import './SignOut.css';
 import {useLocation} from 'react-router-dom';
 
-const Login = ({name, loggedIn, onLoginPopupOpen, handleLogOut, onClose}) => {
+const SignOut = ({name, loggedIn, onLoginPopupOpen, onClose, onSignOut}) => {
   const location = useLocation();
 
   const handleClassName = () => {
     if (location.pathname === '/saved-news') {
-      return "button login-button login-button_active login-button_type_saved-news";
+      return "button sign-out-button sign-out-button_active sign-out-button_type_saved-news";
     }
     else if (loggedIn && location.pathname === '/') {
-      return "button login-button login-button_active login-button_type_main"
+      return "button sign-out-button sign-out-button_active sign-out-button_type_main"
     } else {
-      return "button login-button login-button_type_main"
+      return "button sign-out-button sign-out-button_type_main"
     }
   }
 
   const handleLogin = () => {
     if (loggedIn) {
       onClose();
-      handleLogOut();
+      onSignOut();
     } else {
       onClose();
       onLoginPopupOpen();
@@ -34,4 +34,4 @@ const Login = ({name, loggedIn, onLoginPopupOpen, handleLogOut, onClose}) => {
 }
 
 
-export default Login;
+export default SignOut;

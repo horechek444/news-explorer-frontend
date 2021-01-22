@@ -3,7 +3,7 @@ import './NewsCard.css';
 import CardButton from "../CardButton/CardButton";
 import {useLocation} from 'react-router-dom';
 
-const NewsCard = ({article, loggedIn, onRegisterPopupOpen}) => {
+const NewsCard = ({article, loggedIn, onRegisterPopupOpen, onArticleSave, onArticleDelete}) => {
   const location = useLocation();
   const titleHeightRef = React.useRef("");
   const [quantity, setQuantity] = React.useState({});
@@ -31,17 +31,19 @@ const NewsCard = ({article, loggedIn, onRegisterPopupOpen}) => {
   }
 
   return (
-    <li className={"news-card"}>
-      <CardButton loggedIn={loggedIn} onRegisterPopupOpen={onRegisterPopupOpen}/>
-      <img className="news-card__picture" src={article.urlToImage} alt={article.title}/>
-      <div className="news-card__cover">
-        <span className="news-card__date">{handleDate(article.publishedAt)}</span>
-        <h3 ref={titleHeightRef} className="news-card__title">{article.title}</h3>
-        <p className="news-card__paragraph" style={quantity}>{article.description}</p>
-        <span className="news-card__source">{article.source.name}</span>
-        <span
-          className={location.pathname === '/' ? "news-card__theme" : "news-card__theme news-card__theme_type_saved-news"}>Природа</span>
-      </div>
+    <li className="news-card">
+      <CardButton loggedIn={loggedIn} onRegisterPopupOpen={onRegisterPopupOpen} onArticleSave={onArticleSave} onArticleDelete={onArticleDelete}/>
+      <a className="news-card__link" href={article.link} target="_blank" rel="noreferrer">
+        <img className="news-card__picture" src={article.image} alt={article.title}/>
+        <div className="news-card__cover">
+          <span className="news-card__date">{handleDate(article.date)}</span>
+          <h3 ref={titleHeightRef} className="news-card__title">{article.title}</h3>
+          <p className="news-card__paragraph" style={quantity}>{article.text}</p>
+          <span className="news-card__source">{article.source}</span>
+          <span
+            className={location.pathname === '/' ? "news-card__theme" : "news-card__theme news-card__theme_type_saved-news"}>{article.keyword}</span>
+        </div>
+      </a>
     </li>
   )
 };

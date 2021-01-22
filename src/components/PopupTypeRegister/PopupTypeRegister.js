@@ -26,13 +26,21 @@ const PopupTypeRegister = ({isOpen, onClose, onLoginPopupOpen, loading, serverEr
       return;
     }
     onRegister(email, password, name);
-    onClose();
+  }
+
+  const onSubmit = (event) => {
+    event.preventDefault();
+    handleRegisterSubmit({
+      email: inputValue.email,
+      password: inputValue.password,
+      name: inputValue.name,
+    });
   }
 
   return (
     <Popup name="register" title="Регистрация" isOpen={isOpen} onClose={onClose} onLoginPopupOpen={onLoginPopupOpen}>
       <PopupForm name="register" submit={loading ? "Регистрация..." : "Зарегистрироваться"}
-                 serverError={serverError} onSubmit={handleRegisterSubmit}
+                 serverError={serverError} onSubmit={onSubmit}
                  isValidAll={isValid.email && isValid.password && isValid.name}>
         <PopupInput control="Email" name="email"
                     type="email" placeholder="Введите почту"

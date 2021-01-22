@@ -26,13 +26,20 @@ const PopupTypeLogin = ({isOpen, onClose, onRegisterPopupOpen, loading, serverEr
       return;
     }
     onLogin(email, password);
-    onClose();
+  }
+
+  const onSubmit = (event) => {
+    event.preventDefault();
+    handleLoginSubmit({
+      email: inputValue.email,
+      password: inputValue.password,
+    });
   }
 
   return (
     <Popup name="login" title="Вход" isOpen={isOpen} onClose={onClose} onRegisterPopupOpen={onRegisterPopupOpen}>
       <PopupForm name="login" submit={loading ? "Выполняется вход..." : "Войти"}
-                 serverError={serverError} onSubmit={handleLoginSubmit}
+                 serverError={serverError} onSubmit={onSubmit}
                  isValidAll={isValid.email && isValid.password}>
         <PopupInput control="Email" name="email"
                     type="email" placeholder="Введите почту"

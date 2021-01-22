@@ -15,7 +15,7 @@ const Main = ({isOpen,
                 handleSearchSubmit,
                 searchInputValue,
                 searchError, getNewsError,
-                onSignOut, onRegisterPopupOpen
+                onSignOut, onRegisterPopupOpen, onArticleSave
                 }) => {
   return (
     <>
@@ -39,7 +39,7 @@ const Main = ({isOpen,
         />
       </div>
       <main className="main">
-        {!loading && articles && articles.length ? <NewsCardList articles={articles} getNewsError={getNewsError} loading={loading} loggedIn={loggedIn} onRegisterPopupOpen={onRegisterPopupOpen}/> : <Information articles={articles} loading={loading}/>}
+        {!loading && articles && articles.length ? <NewsCardList articles={articles} getNewsError={getNewsError} loading={loading} loggedIn={loggedIn} onRegisterPopupOpen={onRegisterPopupOpen} onArticleSave={onArticleSave}/> : <Information articles={articles} loading={loading}/>}
         <About/>
       </main>
     </>

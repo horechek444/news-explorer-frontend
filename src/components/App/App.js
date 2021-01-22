@@ -9,9 +9,12 @@ import PopupTypeRegister from "../PopupTypeRegister/PopupTypeRegister";
 import PopupTypeLogin from "../PopupTypeLogin/PopupTypeLogin";
 import PopupTypeSuccess from "../PopupTypeSuccess/PopupTypeSuccess";
 import newsApi from "../../utils/NewsApi";
+import mainApi from "../../utils/MainApi";
 import {lastDate, nowDate, setArticlesData, getArticlesData} from "../../utils/utils";
 import {setToken, getToken, removeToken} from "../../utils/token";
 import * as auth from '../../auth';
+// import Login from "../Login/Login";
+import {CurrentUserContext} from "../../contexts/CurrentUserContext";
 
 function App() {
   const [isMenuOpen, setMenuOpen] = React.useState(false);
@@ -30,6 +33,7 @@ function App() {
   const [serverError, setServerError] = React.useState(true); //todo
   const [newsError, setNewsError] = React.useState('');
   const [articles, setArticles] = React.useState(getArticlesData() ? getArticlesData() : null);
+  const [userArticles, setUserArticles] = React.useState([]);
   const history = useHistory();
 
   const handleContentGetter = (token) => {
@@ -59,6 +63,7 @@ function App() {
   }, []);
 
   const onLogin = (email, password) => {
+    setIsLoading(true);
     auth.authorize(email, password)
       .then((data) => {
         if (!data) {
@@ -66,7 +71,7 @@ function App() {
         }
         if (data.token) {
           setToken(data.token);
-          handleContentGetter(data.token)
+          handleContentGetter(data.token);
         }
       })
       .catch((err) => {
@@ -75,10 +80,15 @@ function App() {
         } else if (err === 401) {
           setServerError('Произошла ошибка, пользователь с данным email не найден');
         }
-      });
+      })
+      .finally(() => {
+        setIsLoading(false);
+        handleCloseAllPopups();
+      })
   };
 
   const onRegister = (email, password, name) => {
+    setIsLoading(true);
     auth.register(email, password, name)
       .then((res) => {
         if (res.statusCode !== 400) {
@@ -92,7 +102,10 @@ function App() {
         if (err === 400) {
           setServerError('Произошла ошибка, некорректно заполнено одно из полей');
         }
-      });
+      }).finally(() => {
+      setIsLoading(false);
+      handleCloseAllPopups();
+    })
   };
 
   const onSignOut = () => {
@@ -102,12 +115,21 @@ function App() {
     history.push('/');
   }
 
-  const getArticles = (keyword, nowDate, lastDate) => {
+  const getAllArticles = (keyword, nowDate, lastDate) => {
     setIsLoading(true);
     newsApi.getNews(keyword, nowDate, lastDate)
       .then((data) => {
-        setArticles(data.articles);
-        setArticlesData(data.articles);
+        const results = data.articles.map((article) => ({
+            keyword: keyword,
+            title: article.title,
+            text: article.description,
+            date: article.publishedAt,
+            source: article.source.name,
+            link: article.url,
+            image: article.urlToImage,
+        }));
+        setArticles(results);
+        setArticlesData(results);
       })
       .catch((err) => {
         setNewsError(`${err}`);
@@ -128,9 +150,53 @@ function App() {
     if (!searchInputValue) {
       setSearchError("error error_type_search error_active");
     } else {
-      getArticles(searchInputValue, lastDate, nowDate);
+      getAllArticles(searchInputValue, lastDate, nowDate);
       setSearchInputValue('');
     }
+  }
+
+  const getUserAndSavedArticles = async () => {
+    try {
+      const [userInfo, articles] = await Promise.all([mainApi.getUserInfo(), mainApi.getArticles()]);
+      setUserArticles(articles);
+      setCurrentUser(userInfo);
+    } catch (err) {
+      console.log(`${err}`);
+    }
+  };
+
+  React.useEffect(() => {
+    if (!loggedIn) return;
+    getUserAndSavedArticles();
+  }, [loggedIn]);
+
+  const handleArticleSave = (article) => {
+    setIsLoading(true);
+    mainApi.createArticle(article)
+      .then((savedArticle) => {
+        setUserArticles([...userArticles, savedArticle]);
+      })
+      .catch((err) => {
+        console.log(`${err}`);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      })
+  }
+
+  const handleArticleDelete = (article) => {
+    setIsLoading(true);
+    mainApi.deleteArticle(article.id)
+      .then(() => {
+        const articlesAfterDelete = userArticles.filter((c) => c.id !== article.id);
+        setUserArticles(articlesAfterDelete);
+      })
+      .catch((err) => {
+        console.log(`${err}`);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      })
   }
 
   const handleToggleMenuClick = () => {
@@ -163,60 +229,67 @@ function App() {
     <div className="page">
       <div className="page__cover">
         <Switch>
-          <Route exact path="/">
-            <Main
-              isOpen={isMenuOpen}
-              onLoginPopupOpen={handlePopupTypeLoginOpen}
-              onRegisterPopupOpen={handlePopupTypeRegisterOpen}
-              handleToggleMenuClick={handleToggleMenuClick}
-              name={name}
-              loggedIn={loggedIn}
-              onClose={handleCloseMenuClick}
-              isPopupOpen={handlePopupOpenDetector}
-              loading={isLoading}
-              articles={articles}
-              handleSearchSubmit={handleSearchSubmit}
-              handleSearchInputChange={handleSearchInputChange}
-              searchInputValue={searchInputValue}
-              searchError={searchError}
-              getNewsError={newsError}
-              onSignOut={onSignOut}
-            />
-            <PopupTypeLogin
-              isOpen={isPopupTypeLoginOpen}
-              onClose={handleCloseAllPopups}
-              onRegisterPopupOpen={handlePopupTypeRegisterOpen}
-              loading={isLoading}
-              serverError={serverError}
-              onLogin={onLogin}/>
-            <PopupTypeRegister
-              isOpen={isPopupTypeRegisterOpen}
-              onClose={handleCloseAllPopups}
-              onLoginPopupOpen={handlePopupTypeLoginOpen}
-              loading={isLoading}
-              serverError={serverError}
-              onRegister={onRegister}/>
-            <PopupTypeSuccess
-              isOpen={isPopupTypeSuccessOpen}
-              isRegister={isRegister}
-              onClose={handleCloseAllPopups}
-              onLoginPopupOpen={handlePopupTypeLoginOpen}/>
-          </Route>
-          <Route path="/saved-news">
-            <SavedNews
-              isOpen={isMenuOpen}
-              onLoginPopupOpen={handlePopupTypeLoginOpen}
-              handleToggleMenuClick={handleToggleMenuClick}
-              name={name}
-              loggedIn={loggedIn}
-              onClose={handleCloseMenuClick}
-              onSignOut={onSignOut}
-              loading={isLoading}
-              articles={articles}
-            />
-          </Route>
+          <CurrentUserContext.Provider value={currentUser}>
+            <Route exact path="/">
+              <Main
+                isOpen={isMenuOpen}
+                onLoginPopupOpen={handlePopupTypeLoginOpen}
+                onRegisterPopupOpen={handlePopupTypeRegisterOpen}
+                handleToggleMenuClick={handleToggleMenuClick}
+                name={name}
+                loggedIn={loggedIn}
+                onClose={handleCloseMenuClick}
+                isPopupOpen={handlePopupOpenDetector}
+                loading={isLoading}
+                articles={articles}
+                handleSearchSubmit={handleSearchSubmit}
+                handleSearchInputChange={handleSearchInputChange}
+                searchInputValue={searchInputValue}
+                searchError={searchError}
+                getNewsError={newsError}
+                onSignOut={onSignOut}
+                userArticles={userArticles}
+                onArticleSave={handleArticleSave}
+              />
+              <PopupTypeLogin
+                isOpen={isPopupTypeLoginOpen}
+                onClose={handleCloseAllPopups}
+                onRegisterPopupOpen={handlePopupTypeRegisterOpen}
+                loading={isLoading}
+                serverError={serverError}
+                onLogin={onLogin}/>
+              <PopupTypeRegister
+                isOpen={isPopupTypeRegisterOpen}
+                onClose={handleCloseAllPopups}
+                onLoginPopupOpen={handlePopupTypeLoginOpen}
+                loading={isLoading}
+                serverError={serverError}
+                onRegister={onRegister}/>
+              <PopupTypeSuccess
+                isOpen={isPopupTypeSuccessOpen}
+                isRegister={isRegister}
+                onClose={handleCloseAllPopups}
+                onLoginPopupOpen={handlePopupTypeLoginOpen}/>
+            </Route>
+            <Route path="/saved-news">
+              <SavedNews
+                isOpen={isMenuOpen}
+                onLoginPopupOpen={handlePopupTypeLoginOpen}
+                handleToggleMenuClick={handleToggleMenuClick}
+                name={name}
+                loggedIn={loggedIn}
+                onClose={handleCloseMenuClick}
+                onSignOut={onSignOut}
+                loading={isLoading}
+                articles={articles}
+                userArticles={userArticles}
+                onArticleDelete={handleArticleDelete}
+              />
+            </Route>
+          </CurrentUserContext.Provider>
         </Switch>
         <Footer/>
+        {/*<Login onLogin={onLogin}/>*/}
       </div>
     </div>
   );

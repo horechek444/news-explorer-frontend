@@ -1,10 +1,11 @@
 import React from "react";
 import './SignOut.css';
 import {useLocation} from 'react-router-dom';
+import {CurrentUserContext} from "../../contexts/CurrentUserContext";
 
-const SignOut = ({name, loggedIn, onLoginPopupOpen, onClose, onSignOut}) => {
+const SignOut = ({loggedIn, onLoginPopupOpen, onClose, onSignOut}) => {
   const location = useLocation();
-
+  const currentUser = React.useContext(CurrentUserContext);
   const handleClassName = () => {
     if (location.pathname === '/saved-news') {
       return "button sign-out-button sign-out-button_active sign-out-button_type_saved-news";
@@ -29,7 +30,7 @@ const SignOut = ({name, loggedIn, onLoginPopupOpen, onClose, onSignOut}) => {
   return (
     <button
       className={handleClassName()}
-      onClick={handleLogin}>{loggedIn ? `${name}` : "Авторизоваться"}</button>
+      onClick={handleLogin}>{loggedIn ? `${currentUser.name}` : "Авторизоваться"}</button>
   )
 }
 

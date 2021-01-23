@@ -6,7 +6,7 @@ import SignOut from '../SignOut/SignOut';
 import {useLocation} from 'react-router-dom';
 import Toggle from "../Toggle/Toggle";
 
-const Header = ({name, isOpen, handleToggleMenuClick, loggedIn, onClose, onLoginPopupOpen, isPopupOpen, onSignOut}) => {
+const Header = ({isOpen, handleToggleMenuClick, loggedIn, onClose, onLoginPopupOpen, isPopupOpen, onSignOut}) => {
   const location = useLocation();
 
   const handleHeaderClassNameClick = () => {
@@ -50,7 +50,7 @@ const Header = ({name, isOpen, handleToggleMenuClick, loggedIn, onClose, onLogin
         </div>
         <div className={handleCoverClassNameClick()}>
           <Navigation loggedIn={loggedIn} onClose={onClose}/>
-          <SignOut name={name} loggedIn={loggedIn} onLoginPopupOpen={onLoginPopupOpen} onClose={onClose} onSignOut={onSignOut}/>
+          <SignOut loggedIn={loggedIn} onLoginPopupOpen={onLoginPopupOpen} onClose={onClose} onSignOut={onSignOut}/>
         </div>
       </div>
     </header>

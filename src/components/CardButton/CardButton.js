@@ -2,7 +2,7 @@ import React from "react";
 import './CardButton.css';
 import {useLocation} from 'react-router-dom';
 
-const CardButton = ({loggedIn, onRegisterPopupOpen, onArticleSave, onArticleDelete}) => {
+const CardButton = ({loggedIn, onRegisterPopupOpen, onArticleSave, onArticleDelete, article}) => {
   const location = useLocation();
 
   const handleMessageShow = () => {
@@ -20,9 +20,10 @@ const CardButton = ({loggedIn, onRegisterPopupOpen, onArticleSave, onArticleDele
     if (location.pathname === '/' && !loggedIn) {
       return onRegisterPopupOpen;
     } else if (location.pathname === '/' && loggedIn) {
-      return onArticleSave;
+      return onArticleSave(article);
     } else if (location.pathname === '/saved-news') {
-      return onArticleDelete;
+      console.log(article);
+      return onArticleDelete(article);
     }
   }
 
@@ -30,7 +31,7 @@ const CardButton = ({loggedIn, onRegisterPopupOpen, onArticleSave, onArticleDele
     <>
       <button
         className={location.pathname === '/' ? "button card-button" : "button card-button card-button_type_saved-news"}
-        onClick={handleClick()}
+        onClick={handleClick}
       />
       <span
         className={handleMessageShow()}>{location.pathname === '/' ? "Войдите, чтобы сохранять статьи" : "Убрать из сохранённых"}</span>

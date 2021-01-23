@@ -26,7 +26,6 @@ function App() {
   const [isRegister, setIsRegister] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(false);
 
-  const [name, setName] = React.useState(null);
   const [currentUser, setCurrentUser] = React.useState([]);
   const [searchInputValue, setSearchInputValue] = React.useState('');
   const [searchError, setSearchError] = React.useState("error");
@@ -39,9 +38,8 @@ function App() {
   const handleContentGetter = (token) => {
     return auth.getContent(token)
       .then((res) => {
-        setName(res.name);
         setLoggedIn(true);
-        history.push('/'); //todo ?
+        history.push('/');
       })
   }
 
@@ -110,7 +108,6 @@ function App() {
 
   const onSignOut = () => {
     removeToken();
-    setName(null);
     setLoggedIn(false);
     history.push('/');
   }
@@ -120,13 +117,13 @@ function App() {
     newsApi.getNews(keyword, nowDate, lastDate)
       .then((data) => {
         const results = data.articles.map((article) => ({
-            keyword: keyword,
-            title: article.title,
-            text: article.description,
-            date: article.publishedAt,
-            source: article.source.name,
-            link: article.url,
-            image: article.urlToImage,
+          keyword: keyword,
+          title: article.title,
+          text: article.description,
+          date: article.publishedAt,
+          source: article.source.name,
+          link: article.url,
+          image: article.urlToImage,
         }));
         setArticles(results);
         setArticlesData(results);
@@ -157,8 +154,8 @@ function App() {
 
   const getUserAndSavedArticles = async () => {
     try {
-      const [userInfo, articles] = await Promise.all([mainApi.getUserInfo(), mainApi.getArticles()]);
-      setUserArticles(articles);
+      const [userInfo, userArticles] = await Promise.all([mainApi.getUserInfo(), mainApi.getArticles()]);
+      setUserArticles(userArticles);
       setCurrentUser(userInfo);
     } catch (err) {
       console.log(`${err}`);
@@ -186,9 +183,9 @@ function App() {
 
   const handleArticleDelete = (article) => {
     setIsLoading(true);
-    mainApi.deleteArticle(article.id)
+    mainApi.deleteArticle(article._id)
       .then(() => {
-        const articlesAfterDelete = userArticles.filter((c) => c.id !== article.id);
+        const articlesAfterDelete = userArticles.filter((c) => c._id !== article._id);
         setUserArticles(articlesAfterDelete);
       })
       .catch((err) => {
@@ -236,7 +233,6 @@ function App() {
                 onLoginPopupOpen={handlePopupTypeLoginOpen}
                 onRegisterPopupOpen={handlePopupTypeRegisterOpen}
                 handleToggleMenuClick={handleToggleMenuClick}
-                name={name}
                 loggedIn={loggedIn}
                 onClose={handleCloseMenuClick}
                 isPopupOpen={handlePopupOpenDetector}
@@ -276,7 +272,6 @@ function App() {
                 isOpen={isMenuOpen}
                 onLoginPopupOpen={handlePopupTypeLoginOpen}
                 handleToggleMenuClick={handleToggleMenuClick}
-                name={name}
                 loggedIn={loggedIn}
                 onClose={handleCloseMenuClick}
                 onSignOut={onSignOut}

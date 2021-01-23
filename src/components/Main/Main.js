@@ -9,7 +9,7 @@ import Information from "../Information/Information";
 const Main = ({isOpen,
                 onLoginPopupOpen,
                 handleToggleMenuClick,
-                name, loggedIn, onClose,
+                loggedIn, onClose,
                 isPopupOpen, loading, articles,
                 handleSearchInputChange,
                 handleSearchSubmit,
@@ -21,7 +21,6 @@ const Main = ({isOpen,
     <>
       <div className="header-search-wrapper">
         <Header
-          name={name}
           isOpen={isOpen}
           handleToggleMenuClick={handleToggleMenuClick}
           loggedIn={loggedIn}

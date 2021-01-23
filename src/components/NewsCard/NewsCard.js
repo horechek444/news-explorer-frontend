@@ -32,7 +32,7 @@ const NewsCard = ({article, loggedIn, onRegisterPopupOpen, onArticleSave, onArti
 
   return (
     <li className="news-card">
-      <CardButton loggedIn={loggedIn} onRegisterPopupOpen={onRegisterPopupOpen} onArticleSave={onArticleSave} onArticleDelete={onArticleDelete}/>
+      <CardButton loggedIn={loggedIn} onRegisterPopupOpen={onRegisterPopupOpen} onArticleSave={onArticleSave} onArticleDelete={onArticleDelete} article={article}/>
       <a className="news-card__link" href={article.link} target="_blank" rel="noreferrer">
         <img className="news-card__picture" src={article.image} alt={article.title}/>
         <div className="news-card__cover">

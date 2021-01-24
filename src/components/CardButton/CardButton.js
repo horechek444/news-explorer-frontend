@@ -8,30 +8,38 @@ const CardButton = ({loggedIn, onRegisterPopupOpen, onArticleSave, onArticleDele
   const handleMessageShow = () => {
     if (location.pathname === '/' && !loggedIn) {
       return "card-button__message";
-    }
-    else if (location.pathname === '/' && loggedIn) {
+    } else if (location.pathname === '/' && loggedIn) {
       return "card-button__message card-button__message_disabled";
     } else if (location.pathname === '/saved-news') {
       return "card-button__message card-button__message_type_saved-news";
     }
   }
 
-  const handleClick = () => {
+  const handleAction = () => {
     if (location.pathname === '/' && !loggedIn) {
-      return onRegisterPopupOpen;
+      return onRegisterPopupOpen();
     } else if (location.pathname === '/' && loggedIn) {
       return onArticleSave(article);
-    } else if (location.pathname === '/saved-news') {
-      console.log(article);
+    } else if ((location.pathname === '/saved-news') || (loggedIn && article.saved)) {
       return onArticleDelete(article);
+    }
+  }
+
+  const handleClassName = () => {
+     if (location.pathname === '/' && loggedIn && article.saved) {
+      return "button card-button card-button_clicked";
+    } else if (location.pathname === '/') {
+      return "button card-button";
+    } else if (location.pathname !== '/') {
+      return "button card-button card-button_type_saved-news";
     }
   }
 
   return (
     <>
       <button
-        className={location.pathname === '/' ? "button card-button" : "button card-button card-button_type_saved-news"}
-        onClick={handleClick}
+        className={handleClassName()}
+        onClick={handleAction}
       />
       <span
         className={handleMessageShow()}>{location.pathname === '/' ? "Войдите, чтобы сохранять статьи" : "Убрать из сохранённых"}</span>

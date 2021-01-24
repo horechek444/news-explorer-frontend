@@ -30,8 +30,7 @@ const NewsCardList = ({articles, getNewsError, loading, loggedIn, onRegisterPopu
       </ul>
       <button
         className={(location.pathname === '/saved-news' || count >= articles.length - 1 || articles.length - 1 <= 3) ? "button news-cards__button" : "button news-cards__button news-cards__button_active"}
-        onClick={handleAdd}>Показать еще
-      </button>
+        onClick={handleAdd}>Показать еще</button>
     </section>
   )
 }

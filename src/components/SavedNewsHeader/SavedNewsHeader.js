@@ -5,6 +5,14 @@ import {CurrentUserContext} from "../../contexts/CurrentUserContext";
 const SavedNewsHeader = ({userArticles}) => {
   const currentUser = React.useContext(CurrentUserContext);
 
+  const handleKeywords = () => {
+    if (userArticles) {
+      userArticles.forEach((userArticle) => {
+        console.log(userArticle.keyword);
+      })
+    }
+  }
+
   return (
     <section className="saved-news__header">
       <span className="saved-news__subtitle">Сохранённые статьи</span>

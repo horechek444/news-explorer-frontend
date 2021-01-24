@@ -10,13 +10,13 @@ import PopupTypeLogin from "../PopupTypeLogin/PopupTypeLogin";
 import PopupTypeSuccess from "../PopupTypeSuccess/PopupTypeSuccess";
 import newsApi from "../../utils/NewsApi";
 import mainApi from "../../utils/MainApi";
-import {lastDate, nowDate, setArticlesData, getArticlesData} from "../../utils/utils";
-import {setToken, getToken, removeToken} from "../../utils/token";
+import {getArticlesData, lastDate, nowDate, setArticlesData} from "../../utils/utils";
+import {getToken, removeToken, setToken} from "../../utils/token";
 import * as auth from '../../auth';
 // import Login from "../Login/Login";
 import {CurrentUserContext} from "../../contexts/CurrentUserContext";
 
-function App() {
+const App = () => {
   const [isMenuOpen, setMenuOpen] = React.useState(false);
   const [isPopupTypeLoginOpen, setPopupTypeLoginOpen] = React.useState(false);
   const [isPopupTypeRegisterOpen, setPopupTypeRegisterOpen] = React.useState(false);
@@ -37,7 +37,7 @@ function App() {
 
   const handleContentGetter = (token) => {
     return auth.getContent(token)
-      .then((res) => {
+      .then(() => {
         setLoggedIn(true);
         history.push('/');
       })
@@ -172,6 +172,11 @@ function App() {
     mainApi.createArticle(article)
       .then((savedArticle) => {
         setUserArticles([...userArticles, savedArticle]);
+        userArticles.find((userArticle) => {
+          if (userArticle.title === article.title) {
+            article.saved = true;
+          }
+        })
       })
       .catch((err) => {
         console.log(`${err}`);
@@ -185,8 +190,9 @@ function App() {
     setIsLoading(true);
     mainApi.deleteArticle(article._id)
       .then(() => {
-        const articlesAfterDelete = userArticles.filter((c) => c._id !== article._id);
+        const articlesAfterDelete = userArticles.filter((userArticle) => userArticle._id !== article._id);
         setUserArticles(articlesAfterDelete);
+        // userArticles.forEach((userArticle) => (userArticle.title !== article.title) ? !article.saved : article.saved);
       })
       .catch((err) => {
         console.log(`${err}`);
@@ -195,6 +201,10 @@ function App() {
         setIsLoading(false);
       })
   }
+
+  React.useEffect(() => {
+    console.log(articles);
+  })
 
   const handleToggleMenuClick = () => {
     setMenuOpen(!isMenuOpen);

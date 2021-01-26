@@ -9,8 +9,10 @@ export const register = (email, password, name) => {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
       "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Credentials": "true",
       "Access-Control-Allow-Methods": "DELETE, POST, GET, OPTIONS",
-      "Access-Control-Allow-Headers": "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With",
+      "Access-Control-Allow-Headers": "X-PINGOTHER, Content-Type",
+      "Access-Control-Max-Age": "86400"
     },
     body: JSON.stringify({email, password, name})
   })
@@ -30,8 +32,10 @@ export const authorize = (email, password) => {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
       "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Credentials": "true",
       "Access-Control-Allow-Methods": "DELETE, POST, GET, OPTIONS",
-      "Access-Control-Allow-Headers": "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With",
+      "Access-Control-Allow-Headers": "X-PINGOTHER, Content-Type",
+      "Access-Control-Max-Age": "86400"
     },
     body: JSON.stringify({email, password})
   })
@@ -58,8 +62,10 @@ export const getContent = (token) => {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`,
       "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Credentials": "true",
       "Access-Control-Allow-Methods": "DELETE, POST, GET, OPTIONS",
-      "Access-Control-Allow-Headers": "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With",
+      "Access-Control-Allow-Headers": "X-PINGOTHER, Content-Type",
+      "Access-Control-Max-Age": "86400"
 
     }
   })

@@ -2,7 +2,7 @@ import React from "react";
 import './CardButton.css';
 import {useLocation} from 'react-router-dom';
 
-const CardButton = ({loggedIn, onRegisterPopupOpen, onArticleSave, onArticleDelete, article}) => {
+const CardButton = ({loggedIn, onRegisterPopupOpen, onArticleSave, onArticleDelete, article, userArticle}) => {
   const location = useLocation();
 
   const handleMessageShow = () => {
@@ -16,17 +16,17 @@ const CardButton = ({loggedIn, onRegisterPopupOpen, onArticleSave, onArticleDele
   }
 
   const handleAction = () => {
-    if (location.pathname === '/' && !loggedIn) {
-      return onRegisterPopupOpen();
+    if ((location.pathname === '/saved-news') || (location.pathname === '/' && loggedIn && article.saved)) {
+      return onArticleDelete(location.pathname === '/saved-news' ? userArticle : article);
     } else if (location.pathname === '/' && loggedIn) {
       return onArticleSave(article);
-    } else if ((location.pathname === '/saved-news') || (loggedIn && article.saved)) {
-      return onArticleDelete(article);
+    } else if (location.pathname === '/' && !loggedIn) {
+      return onRegisterPopupOpen();
     }
   }
 
   const handleClassName = () => {
-     if (location.pathname === '/' && loggedIn && article.saved) {
+    if (location.pathname === '/' && loggedIn && article.saved) {
       return "button card-button card-button_clicked";
     } else if (location.pathname === '/') {
       return "button card-button";

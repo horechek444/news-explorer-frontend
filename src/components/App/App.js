@@ -124,7 +124,9 @@ const App = () => {
           source: article.source.name,
           link: article.url,
           image: article.urlToImage,
+          saved: false,
         }));
+        handleArticlesSave(results);
         setArticles(results);
         setArticlesData(results);
       })
@@ -155,11 +157,25 @@ const App = () => {
   const getUserAndSavedArticles = async () => {
     try {
       const [userInfo, userArticles] = await Promise.all([mainApi.getUserInfo(), mainApi.getArticles()]);
+      handleArticlesSave(articles);
       setUserArticles(userArticles);
       setCurrentUser(userInfo);
     } catch (err) {
       console.log(`${err}`);
     }
+  };
+
+  const handleArticlesSave = (articles) => {
+    articles.forEach((article) => {
+      if (userArticles) {
+        userArticles.forEach((userArticle) => {
+          if (userArticle.title === article.title) {
+            article.saved = true;
+            article._id = userArticle._id;
+          }
+        })
+      }
+    })
   };
 
   React.useEffect(() => {
@@ -172,11 +188,8 @@ const App = () => {
     mainApi.createArticle(article)
       .then((savedArticle) => {
         setUserArticles([...userArticles, savedArticle]);
-        userArticles.find((userArticle) => {
-          if (userArticle.title === article.title) {
-            article.saved = true;
-          }
-        })
+        article._id = savedArticle._id;
+        article.saved = true;
       })
       .catch((err) => {
         console.log(`${err}`);
@@ -190,9 +203,17 @@ const App = () => {
     setIsLoading(true);
     mainApi.deleteArticle(article._id)
       .then(() => {
-        const articlesAfterDelete = userArticles.filter((userArticle) => userArticle._id !== article._id);
+        let articleWidthId;
+        articles.forEach((card) => {
+          if (article.title === card.title) {
+            if (!card._id || card._id !== article._id) {
+            } articleWidthId = card;
+          }
+          card.saved = false;
+          return articleWidthId;
+        });
+        const articlesAfterDelete = userArticles.filter((userArticle) => userArticle._id !== (article._id || articleWidthId._id));
         setUserArticles(articlesAfterDelete);
-        // userArticles.forEach((userArticle) => (userArticle.title !== article.title) ? !article.saved : article.saved);
       })
       .catch((err) => {
         console.log(`${err}`);
@@ -202,9 +223,9 @@ const App = () => {
       })
   }
 
-  React.useEffect(() => {
-    console.log(articles);
-  })
+  // React.useEffect(() => {
+  //   console.log(articles);
+  // }, [])
 
   const handleToggleMenuClick = () => {
     setMenuOpen(!isMenuOpen);
@@ -256,6 +277,7 @@ const App = () => {
                 onSignOut={onSignOut}
                 userArticles={userArticles}
                 onArticleSave={handleArticleSave}
+                onArticleDelete={handleArticleDelete}
               />
               <PopupTypeLogin
                 isOpen={isPopupTypeLoginOpen}

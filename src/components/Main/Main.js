@@ -9,13 +9,14 @@ import Information from "../Information/Information";
 const Main = ({isOpen,
                 onLoginPopupOpen,
                 handleToggleMenuClick,
-                loggedIn, onClose,
+                loggedIn, onClose, userArticles,
                 isPopupOpen, loading, articles,
                 handleSearchInputChange,
                 handleSearchSubmit,
                 searchInputValue,
                 searchError, getNewsError,
-                onSignOut, onRegisterPopupOpen, onArticleSave
+                onSignOut, onRegisterPopupOpen,
+                onArticleSave, onArticleDelete
                 }) => {
   return (
     <>
@@ -38,7 +39,7 @@ const Main = ({isOpen,
         />
       </div>
       <main className="main">
-        {!loading && articles && articles.length ? <NewsCardList articles={articles} getNewsError={getNewsError} loading={loading} loggedIn={loggedIn} onRegisterPopupOpen={onRegisterPopupOpen} onArticleSave={onArticleSave}/> : <Information articles={articles} loading={loading}/>}
+        {!loading && articles && articles.length ? <NewsCardList articles={articles} getNewsError={getNewsError} loading={loading} loggedIn={loggedIn} onRegisterPopupOpen={onRegisterPopupOpen} onArticleSave={onArticleSave} onArticleDelete={onArticleDelete} userArticles={userArticles}/> : <Information articles={articles} loading={loading}/>}
         <About/>
       </main>
     </>

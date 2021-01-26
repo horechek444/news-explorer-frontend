@@ -81,8 +81,10 @@ const mainApi = new MainApi({
   headers: {
     'Content-Type': 'application/json',
     "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": "true",
     "Access-Control-Allow-Methods": "DELETE, POST, GET, OPTIONS",
-    "Access-Control-Allow-Headers": "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With",
+    "Access-Control-Allow-Headers": "X-PINGOTHER, Content-Type",
+    "Access-Control-Max-Age": "86400"
   }
 })
 

@@ -26,7 +26,7 @@ const NewsCardList = ({articles, getNewsError, loading, loggedIn, onRegisterPopu
       <h2
         className={location.pathname === '/saved-news' ? "news-cards__title" : "news-cards__title news-cards__title_active"}>{(location.pathname !== '/saved-news' && getNewsError) ? "Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз" : "Результаты поиска"}</h2>
       <ul className="news-cards__list">
-        {location.pathname === '/' ?  articles.slice(0, count).map((article, index) => <NewsCard key={index} article={article} loggedIn={loggedIn} onRegisterPopupOpen={onRegisterPopupOpen} onArticleSave={onArticleSave}/>) : userArticles.map((userArticle, index) => <NewsCard key={index} article={userArticle} onArticleDelete={onArticleDelete}/>)}
+        {location.pathname === '/' ? articles.slice(0, count).map((article, index) => <NewsCard key={index} article={article} loggedIn={loggedIn} onRegisterPopupOpen={onRegisterPopupOpen} onArticleSave={onArticleSave} onArticleDelete={onArticleDelete}/>) : userArticles.map((userArticle, index) => <NewsCard key={index} userArticle={userArticle} onArticleDelete={onArticleDelete}/>)}
       </ul>
       <button
         className={(location.pathname === '/saved-news' || count >= articles.length - 1 || articles.length - 1 <= 3) ? "button news-cards__button" : "button news-cards__button news-cards__button_active"}

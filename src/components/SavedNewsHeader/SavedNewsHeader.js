@@ -4,14 +4,18 @@ import {CurrentUserContext} from "../../contexts/CurrentUserContext";
 
 const SavedNewsHeader = ({userArticles}) => {
   const currentUser = React.useContext(CurrentUserContext);
+  const [keywords, setKeywords] = React.useState([]);
 
-  const handleKeywords = () => {
+  React.useEffect(() => {
     if (userArticles) {
       userArticles.forEach((userArticle) => {
-        console.log(userArticle.keyword);
+        setKeywords([...keywords, userArticle.keyword]);
+        // keywords.sort();
       })
     }
-  }
+  }, [])
+
+  console.log(keywords);
 
   return (
     <section className="saved-news__header">

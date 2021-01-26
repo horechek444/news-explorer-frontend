@@ -18,10 +18,6 @@
     font-size: 14px;
 }
 
-.error_active {
-    opacity: 1;
-}
-
 .error_type_server {
     opacity: 0;
     display: block;
@@ -29,4 +25,8 @@
     left: 0;
     text-align: center;
     width: 100%;
+}
+
+.error_active {
+    opacity: 1;
 }

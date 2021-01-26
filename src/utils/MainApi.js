@@ -80,11 +80,6 @@ const mainApi = new MainApi({
   baseUrl: BASE_URL,
   headers: {
     'Content-Type': 'application/json',
-    "Access-Control-Allow-Origin": "*",
-    "Access-Control-Allow-Credentials": "true",
-    "Access-Control-Allow-Methods": "DELETE, POST, GET, OPTIONS",
-    "Access-Control-Allow-Headers": "X-PINGOTHER, Content-Type",
-    "Access-Control-Max-Age": "86400"
   }
 })
 

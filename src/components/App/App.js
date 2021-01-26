@@ -27,10 +27,10 @@ const App = () => {
   const [isLoading, setIsLoading] = React.useState(false);
 
   const [currentUser, setCurrentUser] = React.useState([]);
-  const [searchInputValue, setSearchInputValue] = React.useState('');
+  const [searchInputValue, setSearchInputValue] = React.useState("");
   const [searchError, setSearchError] = React.useState("error");
-  const [serverError, setServerError] = React.useState(''); //todo
-  const [newsError, setNewsError] = React.useState('');
+  const [serverError, setServerError] = React.useState("");
+  const [newsError, setNewsError] = React.useState("");
   const [articles, setArticles] = React.useState(getArticlesData() ? getArticlesData() : null);
   const [userArticles, setUserArticles] = React.useState([]);
   const history = useHistory();
@@ -74,35 +74,16 @@ const App = () => {
         handleCloseAllPopups();
       })
       .catch((err) => {
-        if (err === 400) {
-          setServerError('Произошла ошибка, не передано одно из полей');
-        } else if (err === 401) {
-          setServerError('Произошла ошибка, пользователь с данным email не найден');
+        if (err.code === 400) {
+          setServerError(err.message);
+        } else if (err.code === 401) {
+          setServerError(err.message);
         }
       })
       .finally(() => {
         setIsLoading(false);
       })
   };
-
-  const error = async (email, password, name) => {
-    try {
-      const res = await fetch('https://api.horechek-news.students.nomoredomains.work/signup', {
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({email, password, name})
-      })
-      const json = await res.json();
-      if (!res.ok) {
-        return Promise.reject({ message: json.message })
-      }
-    } catch (err) {
-      console.log(`${err}`);
-    }
-  }
 
   const onRegister = (email, password, name) => {
     setIsLoading(true);
@@ -116,12 +97,12 @@ const App = () => {
       })
       .catch((err) => {
         setIsRegister(false);
-        // console.log();
-        // } else if (err.statusCode === 400) {
-        //   setServerError('Произошла ошибка, некорректно заполнено одно из полей');
-        // }
-        // console.log(err.statusCode);
-        // console.log(serverError);
+        if (err.code === 400) {
+          setServerError(err.message);
+        } else if (err.code === 409) {
+          setServerError(err.message);
+        }
+        console.log(serverError);
       }).finally(() => {
       setIsLoading(false);
     })
@@ -255,6 +236,7 @@ const App = () => {
     setPopupTypeLoginOpen(false);
     setPopupTypeRegisterOpen(false);
     setPopupTypeSuccessOpen(false);
+    setServerError('');
   }
 
   const handlePopupTypeLoginOpen = () => {

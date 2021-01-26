@@ -2,8 +2,8 @@ import {setToken} from "./utils/token";
 
 export const BASE_URL = 'https://api.horechek-news.students.nomoredomains.work';
 
-export const register = (email, password, name) => {
-  return fetch(`${BASE_URL}/signup`, {
+export const register = async (email, password, name) => {
+  const res = await fetch(`${BASE_URL}/signup`, {
     method: 'POST',
     headers: {
       'Accept': 'application/json',
@@ -11,42 +11,30 @@ export const register = (email, password, name) => {
     },
     body: JSON.stringify({email, password, name})
   })
-    .then(response => {
-      let data = response.json();
-      if(!response.ok) {
-        return Promise.reject(response.status);
-      }
-      return data;
-    })
-};
+  const json = await res.json();
+  if (!res.ok) {
+    return Promise.reject({code: res.status, message: json.message})
+  }
+}
 
-export const authorize = (email, password) => {
-  return fetch(`${BASE_URL}/signin`, {
+export const authorize = async (email, password) => {
+  const res = await fetch(`${BASE_URL}/signin`, {
     method: 'POST',
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
-      "Access-Control-Allow-Origin": "*",
-      "Access-Control-Allow-Credentials": "true",
-      "Access-Control-Allow-Methods": "DELETE, POST, GET, OPTIONS",
-      "Access-Control-Allow-Headers": "X-PINGOTHER, Content-Type",
-      "Access-Control-Max-Age": "86400"
     },
     body: JSON.stringify({email, password})
   })
-    .then((response => {
-      let data = response.json();
-      if (!response.ok) {
-        return Promise.reject(response.status);
-      }
-      return data;
-    }))
-    .then((data) => {
-      if (data.token){
-        setToken(data.token);
-        return data;
-      }
-    })
+  const json = await res.json();
+  if (!res.ok) {
+    return Promise.reject({code: res.status, message: json.message})
+  }
+  if (json.token) {
+    setToken(json.token);
+    return json;
+  }
+
 };
 
 export const getContent = (token) => {
@@ -56,12 +44,6 @@ export const getContent = (token) => {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`,
-      "Access-Control-Allow-Origin": "*",
-      "Access-Control-Allow-Credentials": "true",
-      "Access-Control-Allow-Methods": "DELETE, POST, GET, OPTIONS",
-      "Access-Control-Allow-Headers": "X-PINGOTHER, Content-Type",
-      "Access-Control-Max-Age": "86400"
-
     }
   })
     .then((res => {

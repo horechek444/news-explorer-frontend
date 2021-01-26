@@ -5,16 +5,16 @@ import SavedNews from "../SavedNews/SavedNews";
 import {Route, Switch, useHistory} from 'react-router-dom';
 import '../../vendor/fonts/fonts.css';
 import Footer from "../Footer/Footer";
-import PopupTypeRegister from "../PopupTypeRegister/PopupTypeRegister";
-import PopupTypeLogin from "../PopupTypeLogin/PopupTypeLogin";
 import PopupTypeSuccess from "../PopupTypeSuccess/PopupTypeSuccess";
 import newsApi from "../../utils/NewsApi";
 import mainApi from "../../utils/MainApi";
 import {getArticlesData, lastDate, nowDate, setArticlesData} from "../../utils/utils";
 import {getToken, removeToken, setToken} from "../../utils/token";
 import * as auth from '../../auth';
-// import Login from "../Login/Login";
+import Login from "../Login/Login";
+import Register from "../Register/Register";
 import {CurrentUserContext} from "../../contexts/CurrentUserContext";
+import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 
 const App = () => {
   const [isMenuOpen, setMenuOpen] = React.useState(false);
@@ -29,7 +29,7 @@ const App = () => {
   const [currentUser, setCurrentUser] = React.useState([]);
   const [searchInputValue, setSearchInputValue] = React.useState('');
   const [searchError, setSearchError] = React.useState("error");
-  const [serverError, setServerError] = React.useState(true); //todo
+  const [serverError, setServerError] = React.useState(''); //todo
   const [newsError, setNewsError] = React.useState('');
   const [articles, setArticles] = React.useState(getArticlesData() ? getArticlesData() : null);
   const [userArticles, setUserArticles] = React.useState([]);
@@ -71,6 +71,7 @@ const App = () => {
           setToken(data.token);
           handleContentGetter(data.token);
         }
+        handleCloseAllPopups();
       })
       .catch((err) => {
         if (err === 400) {
@@ -81,9 +82,27 @@ const App = () => {
       })
       .finally(() => {
         setIsLoading(false);
-        handleCloseAllPopups();
       })
   };
+
+  const error = async (email, password, name) => {
+    try {
+      const res = await fetch('https://api.horechek-news.students.nomoredomains.work/signup', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({email, password, name})
+      })
+      const json = await res.json();
+      if (!res.ok) {
+        return Promise.reject({ message: json.message })
+      }
+    } catch (err) {
+      console.log(`${err}`);
+    }
+  }
 
   const onRegister = (email, password, name) => {
     setIsLoading(true);
@@ -92,17 +111,19 @@ const App = () => {
         if (res.statusCode !== 400) {
           setIsRegister(true);
           setPopupTypeSuccessOpen(true);
+          handleCloseAllPopups();
         }
       })
       .catch((err) => {
         setIsRegister(false);
-        setServerError(`${err}`);
-        if (err === 400) {
-          setServerError('Произошла ошибка, некорректно заполнено одно из полей');
-        }
+        // console.log();
+        // } else if (err.statusCode === 400) {
+        //   setServerError('Произошла ошибка, некорректно заполнено одно из полей');
+        // }
+        // console.log(err.statusCode);
+        // console.log(serverError);
       }).finally(() => {
       setIsLoading(false);
-      handleCloseAllPopups();
     })
   };
 
@@ -206,8 +227,7 @@ const App = () => {
         let articleWidthId;
         articles.forEach((card) => {
           if (article.title === card.title) {
-            if (!card._id || card._id !== article._id) {
-            } articleWidthId = card;
+            articleWidthId = card;
           }
           card.saved = false;
           return articleWidthId;
@@ -222,10 +242,6 @@ const App = () => {
         setIsLoading(false);
       })
   }
-
-  // React.useEffect(() => {
-  //   console.log(articles);
-  // }, [])
 
   const handleToggleMenuClick = () => {
     setMenuOpen(!isMenuOpen);
@@ -279,14 +295,14 @@ const App = () => {
                 onArticleSave={handleArticleSave}
                 onArticleDelete={handleArticleDelete}
               />
-              <PopupTypeLogin
+              <Login
                 isOpen={isPopupTypeLoginOpen}
                 onClose={handleCloseAllPopups}
                 onRegisterPopupOpen={handlePopupTypeRegisterOpen}
                 loading={isLoading}
                 serverError={serverError}
                 onLogin={onLogin}/>
-              <PopupTypeRegister
+              <Register
                 isOpen={isPopupTypeRegisterOpen}
                 onClose={handleCloseAllPopups}
                 onLoginPopupOpen={handlePopupTypeLoginOpen}
@@ -299,7 +315,7 @@ const App = () => {
                 onClose={handleCloseAllPopups}
                 onLoginPopupOpen={handlePopupTypeLoginOpen}/>
             </Route>
-            <Route path="/saved-news">
+            <ProtectedRoute exact path="/saved-news" loggedIn={loggedIn}>
               <SavedNews
                 isOpen={isMenuOpen}
                 onLoginPopupOpen={handlePopupTypeLoginOpen}
@@ -312,11 +328,10 @@ const App = () => {
                 userArticles={userArticles}
                 onArticleDelete={handleArticleDelete}
               />
-            </Route>
+            </ProtectedRoute>
           </CurrentUserContext.Provider>
         </Switch>
         <Footer/>
-        {/*<Login onLogin={onLogin}/>*/}
       </div>
     </div>
   );

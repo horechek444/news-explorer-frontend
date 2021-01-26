@@ -12,7 +12,7 @@ const NewsCardList = ({articles, getNewsError, loading, loggedIn, onRegisterPopu
       return "news-cards news-cards_type_saved-news news-cards_active";
     } else if ((!loading && articles.length) || getNewsError) {
       return "news-cards news-cards_active";
-    } else if (!articles.length) {
+    } else if (!articles.length || !userArticles.length) {
       return "news-cards";
     }
   }

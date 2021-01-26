@@ -16,8 +16,7 @@ const SavedNews = ({isOpen, handleToggleMenuClick, onLoginPopupOpen, loggedIn, o
         onSignOut={onSignOut}
       />
       <SavedNewsHeader userArticles={userArticles}/>
-      <Information loading={loading}/>
-      <NewsCardList articles={articles} userArticles={userArticles} onArticleDelete={onArticleDelete}/>
+      {!userArticles.length ? <Information loading={loading} userArticles={userArticles}/> : <NewsCardList articles={articles} userArticles={userArticles} onArticleDelete={onArticleDelete}/>}
     </>
   )
 }

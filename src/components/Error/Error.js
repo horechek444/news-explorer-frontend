@@ -13,7 +13,7 @@ const Error = ({serverError, isValid, validationMessage}) => {
   }
   return (
     <span
-      className={handleErrorClass()}>{serverError ? `${serverError}` : `${validationMessage}`}</span>
+      className={handleErrorClass()}>{serverError ? serverError : validationMessage}</span>
   )
 }
 

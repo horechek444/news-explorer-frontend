@@ -50,8 +50,8 @@ const App = () => {
     }
     handleContentGetter(jwt)
       .catch((err) => {
-        if (err === 401) {
-          console.log('Произошла ошибка, токен не был передан, был передан не в том формате или не является корректным')
+        if (err.code === 401) {
+          console.log(err.message)
         }
       });
   }
@@ -89,10 +89,10 @@ const App = () => {
     setIsLoading(true);
     auth.register(email, password, name)
       .then((res) => {
-        if (res.statusCode !== 400) {
+        if (res.status !== 400) {
           setIsRegister(true);
           setPopupTypeSuccessOpen(true);
-          handleCloseAllPopups();
+          setPopupTypeRegisterOpen(false);
         }
       })
       .catch((err) => {
@@ -128,7 +128,7 @@ const App = () => {
           image: article.urlToImage,
           saved: false,
         }));
-        handleArticlesSave(results);
+        // handleArticlesSave(results);
         setArticles(results);
         setArticlesData(results);
       })
@@ -159,7 +159,7 @@ const App = () => {
   const getUserAndSavedArticles = async () => {
     try {
       const [userInfo, userArticles] = await Promise.all([mainApi.getUserInfo(), mainApi.getArticles()]);
-      handleArticlesSave(articles);
+      // handleArticlesSave(articles);
       setUserArticles(userArticles);
       setCurrentUser(userInfo);
     } catch (err) {
@@ -167,18 +167,18 @@ const App = () => {
     }
   };
 
-  const handleArticlesSave = (articles) => {
-    articles.forEach((article) => {
-      if (userArticles) {
-        userArticles.forEach((userArticle) => {
-          if (userArticle.title === article.title) {
-            article.saved = true;
-            article._id = userArticle._id;
-          }
-        })
-      }
-    })
-  };
+  // const handleArticlesSave = (articles) => {
+  //   articles.forEach((article) => {
+  //     if (userArticles) {
+  //       userArticles.forEach((userArticle) => {
+  //         if (userArticle.title === article.title) {
+  //           article.saved = true;
+  //           article._id = userArticle._id;
+  //         }
+  //       })
+  //     }
+  //   })
+  // };
 
   React.useEffect(() => {
     if (!loggedIn) return;

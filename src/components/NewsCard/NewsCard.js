@@ -3,7 +3,7 @@ import './NewsCard.css';
 import CardButton from "../CardButton/CardButton";
 import {useLocation} from 'react-router-dom';
 
-const NewsCard = ({article, loggedIn, onRegisterPopupOpen, onArticleSave, onArticleDelete, userArticle, userArticles}) => {
+const NewsCard = ({article, loggedIn, onRegisterPopupOpen, onArticleSave, onArticleDelete, userArticle}) => {
   const location = useLocation();
   const titleHeightRef = React.useRef("");
   const [quantity, setQuantity] = React.useState({});
@@ -32,7 +32,7 @@ const NewsCard = ({article, loggedIn, onRegisterPopupOpen, onArticleSave, onArti
 
   return (
     <li className="news-card">
-      <CardButton loggedIn={loggedIn} onRegisterPopupOpen={onRegisterPopupOpen} onArticleSave={onArticleSave} onArticleDelete={onArticleDelete} article={article} userArticle={userArticle} userArticles={userArticles}/>
+      <CardButton loggedIn={loggedIn} onRegisterPopupOpen={onRegisterPopupOpen} onArticleSave={onArticleSave} onArticleDelete={onArticleDelete} article={article} userArticle={userArticle}/>
       <a className="news-card__link" href={location.pathname === '/' ? article.link : userArticle.link} target="_blank" rel="noreferrer">
         <img className="news-card__picture" src={location.pathname === '/' ? article.image : userArticle.image} alt={location.pathname === '/' ? article.title : userArticle.title}/>
         <div className="news-card__cover">

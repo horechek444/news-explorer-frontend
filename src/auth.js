@@ -15,6 +15,7 @@ export const register = async (email, password, name) => {
   if (!res.ok) {
     return Promise.reject({code: res.status, message: json.message})
   }
+  return res;
 }
 
 export const authorize = async (email, password) => {
@@ -34,11 +35,10 @@ export const authorize = async (email, password) => {
     setToken(json.token);
     return json;
   }
-
 };
 
-export const getContent = (token) => {
-  return fetch(`${BASE_URL}/users/me`, {
+export const getContent = async (token) => {
+  const res = await fetch(`${BASE_URL}/users/me`, {
     method: 'GET',
     headers: {
       'Accept': 'application/json',
@@ -46,12 +46,9 @@ export const getContent = (token) => {
       'Authorization': `Bearer ${token}`,
     }
   })
-    .then((res => {
-      let data = res.json();
-      if (!res.ok) {
-        return Promise.reject(res.status);
-      }
-      return data;
-    }))
+  const json = await res.json();
+  if (!res.ok) {
+    return Promise.reject({code: res.status, message: json.message})
+  }
 };
 

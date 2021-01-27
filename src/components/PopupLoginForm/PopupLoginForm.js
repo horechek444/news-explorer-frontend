@@ -31,7 +31,7 @@ const PopupLoginForm = ({isOpen, loading, serverError, handleLoginSubmit}) => {
     <PopupForm name="login" submit={loading ? "Выполняется вход..." : "Войти"}
                serverError={serverError} onSubmit={onSubmit}
                isValidAll={isValid.email && isValid.password}>
-      <PopupInput control="Email" name="email"
+    <PopupInput control="Email" name="email"
                   type="email" placeholder="Введите почту"
                   required={true} value={inputValue.email}
                   onChange={handleInputChange} isValid={isValid.email}

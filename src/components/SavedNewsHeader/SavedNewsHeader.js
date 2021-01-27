@@ -4,7 +4,7 @@ import {CurrentUserContext} from "../../contexts/CurrentUserContext";
 
 const SavedNewsHeader = ({userArticles}) => {
   const currentUser = React.useContext(CurrentUserContext);
-  let keywords = userArticles ? Array.from(userArticles, ({keyword}) => keyword) : [];
+  const keywords = userArticles ? Array.from(userArticles, ({keyword}) => keyword) : [];
 
   for (let length = keywords.length, i = length; --i >= 0;) {
     if (keywords[keywords[i]]) {

@@ -17,6 +17,11 @@
     background-image: url('../../images/trash.svg');
 }
 
+.card-button_loading {
+    transform: scale(1.5);
+
+}
+
 .card-button__message {
     display: none;
     position: absolute;

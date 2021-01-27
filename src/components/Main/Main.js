@@ -9,14 +9,13 @@ import Information from "../Information/Information";
 const Main = ({isOpen,
                 onLoginPopupOpen,
                 handleToggleMenuClick,
-                loggedIn, onClose, userArticles,
+                loggedIn, onClose,
                 isPopupOpen, loading, articles,
                 handleSearchInputChange,
                 handleSearchSubmit,
                 searchInputValue,
                 searchError, getNewsError,
-                onSignOut, onRegisterPopupOpen,
-                onArticleSave, onArticleDelete
+                onSignOut, onRegisterPopupOpen, onRemoveCallback, onAddCallback
                 }) => {
   return (
     <>
@@ -29,6 +28,7 @@ const Main = ({isOpen,
           onLoginPopupOpen={onLoginPopupOpen}
           isPopupOpen={isPopupOpen}
           onSignOut={onSignOut}
+          isMain={true}
         />
         <SearchForm
           isOpen={isOpen}
@@ -36,10 +36,11 @@ const Main = ({isOpen,
           handleSearchSubmit={handleSearchSubmit}
           searchInputValue={searchInputValue}
           error={searchError}
+          loading={loading}
         />
       </div>
       <main className="main">
-        {!loading && articles && articles.length ? <NewsCardList articles={articles} getNewsError={getNewsError} loading={loading} loggedIn={loggedIn} onRegisterPopupOpen={onRegisterPopupOpen} onArticleSave={onArticleSave} onArticleDelete={onArticleDelete} userArticles={userArticles}/> : <Information articles={articles} loading={loading}/>}
+        {!loading && articles && articles.length ? <NewsCardList articles={articles} getNewsError={getNewsError} loading={loading} loggedIn={loggedIn} isMain={true} onRegisterPopupOpen={onRegisterPopupOpen} onRemoveCallback={onRemoveCallback} onAddCallback={onAddCallback}/> : <Information articles={articles} isMain={true} loading={loading}/>}
         <About/>
       </main>
     </>

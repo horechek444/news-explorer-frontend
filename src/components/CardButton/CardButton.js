@@ -1,36 +1,66 @@
 import React from "react";
 import './CardButton.css';
-import {useLocation} from 'react-router-dom';
+import mainApi from "../../utils/MainApi";
 
-const CardButton = ({loggedIn, onRegisterPopupOpen, onArticleSave, onArticleDelete, article, userArticle}) => {
-  const location = useLocation();
+const CardButton = ({loggedIn, onRegisterPopupOpen, article, isMain, onRemoveCallback, onAddCallback}) => {
+  const [saved, setSaved] = React.useState(article.saved)
+
+  const handleArticleSave = (article) => {
+    mainApi.createArticle(article)
+      .then((savedArticle) => {
+        setSaved(true);
+        article._id = savedArticle._id;
+        article.saved = true;
+        if (onAddCallback !== undefined) {
+          onAddCallback(savedArticle);
+        }
+      })
+      .catch((err) => {
+        console.log(`${err}`);
+      })
+  }
+
+  const handleArticleDelete = (userArticle) => {
+    mainApi.deleteArticle(userArticle._id)
+      .then(() => {
+        article.saved = false;
+        setSaved(false);
+        if (onRemoveCallback !== undefined) {
+          onRemoveCallback(userArticle._id);
+        }
+      })
+      .catch((err) => {
+        console.log(`${err}`);
+      })
+  }
 
   const handleMessageShow = () => {
-    if (location.pathname === '/' && !loggedIn) {
+    if (isMain && !loggedIn) {
       return "card-button__message";
-    } else if (location.pathname === '/' && loggedIn) {
+    } else if (isMain && loggedIn) {
       return "card-button__message card-button__message_disabled";
-    } else if (location.pathname === '/saved-news') {
+    } else {
       return "card-button__message card-button__message_type_saved-news";
     }
   }
 
-  const handleAction = () => {
-    if ((location.pathname === '/saved-news') || (location.pathname === '/' && loggedIn && article.saved)) {
-      return onArticleDelete(location.pathname === '/saved-news' ? userArticle : article);
-    } else if (location.pathname === '/' && loggedIn) {
-      return onArticleSave(article);
-    } else if (location.pathname === '/' && !loggedIn) {
+  const handleAction = (event) => {
+    event.preventDefault();
+    if (!isMain || (isMain && loggedIn && saved)) {
+      return handleArticleDelete(article);
+    } else if (isMain && loggedIn) {
+      return handleArticleSave(article);
+    } else if (isMain && !loggedIn) {
       return onRegisterPopupOpen();
     }
   }
 
   const handleClassName = () => {
-    if (location.pathname === '/' && loggedIn && article.saved) {
+    if (isMain && loggedIn && saved) {
       return "button card-button card-button_clicked";
-    } else if (location.pathname === '/') {
+    } else if (isMain) {
       return "button card-button";
-    } else if (location.pathname !== '/') {
+    } else if (!isMain) {
       return "button card-button card-button_type_saved-news";
     }
   }
@@ -42,7 +72,7 @@ const CardButton = ({loggedIn, onRegisterPopupOpen, onArticleSave, onArticleDele
         onClick={handleAction}
       />
       <span
-        className={handleMessageShow()}>{location.pathname === '/' ? "Войдите, чтобы сохранять статьи" : "Убрать из сохранённых"}</span>
+        className={handleMessageShow()}>{isMain ? "Войдите, чтобы сохранять статьи" : "Убрать из сохранённых"}</span>
     </>
   )
 }

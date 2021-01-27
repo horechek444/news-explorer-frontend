@@ -1,7 +1,7 @@
 import React from "react";
 import './SearchForm.css';
 
-const SearchForm = ({isOpen, searchInputValue, handleSearchInputChange, handleSearchSubmit, error}) => {
+const SearchForm = ({isOpen, searchInputValue, handleSearchInputChange, handleSearchSubmit, error, loading}) => {
   return (
     <section className={isOpen ? "search-form search-form_type_open" : "search-form"}>
       <div className="search-form__container">
@@ -17,9 +17,9 @@ const SearchForm = ({isOpen, searchInputValue, handleSearchInputChange, handleSe
                  placeholder="Введите тему новости"
                  required={true}
                  onChange={handleSearchInputChange}
-                 value={searchInputValue}/>
+                 value={searchInputValue} disabled={loading}/>
           <span className={error}>Нужно ввести ключевое слово</span>
-          <input className="button search-form__submit" type="submit" value="Искать"/>
+          <input className="button search-form__submit" type="submit" value="Искать" disabled={loading}/>
         </form>
       </div>
     </section>

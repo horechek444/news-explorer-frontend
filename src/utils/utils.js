@@ -1,7 +1,9 @@
+import {DAYS} from './config';
+
 // расчёт текущей и предыдущей дат для поискового запроса
 const dateNow = new Date();
 const dateLast = new Date();
-dateLast.setDate(dateNow.getDate() - 7);
+dateLast.setDate(dateNow.getDate() - DAYS);
 export const nowDate = dateNow.getFullYear().toString() + "-" + (dateNow.getMonth() + "1").toString() + "-" + ((dateNow.getDate().toString() > 10) ? dateNow.getDate().toString() : ("0" + dateNow.getDate().toString()));
 export const lastDate = (dateLast.getFullYear()).toString() + "-" + ((dateLast.getMonth() + "1").toString()) + "-" + ((dateLast.getDate() > 10) ? dateLast.getDate() : ("0" + dateLast.getDate()));
 

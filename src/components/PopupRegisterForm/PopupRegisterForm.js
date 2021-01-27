@@ -31,23 +31,23 @@ const PopupRegisterForm = ({isOpen, loading, serverError, handleRegisterSubmit})
   return (
     <PopupForm name="register" submit={loading ? "Регистрация..." : "Зарегистрироваться"}
                serverError={serverError} onSubmit={onSubmit}
-               isValidAll={isValid.email && isValid.password && isValid.name}>
+               isValidAll={isValid.email && isValid.password && isValid.name} loading={loading}>
       <PopupInput control="Email" name="email"
                   type="email" placeholder="Введите почту"
                   required={true} value={inputValue.email}
                   onChange={handleInputChange} isValid={isValid.email}
-                  validationMessage={validationMessage.email}/>
+                  validationMessage={validationMessage.email} loading={loading}/>
       <PopupInput control="Пароль" name="password"
                   type="password" placeholder="Введите пароль"
                   required={true} value={inputValue.password}
                   onChange={handleInputChange} isValid={isValid.password}
-                  validationMessage={validationMessage.password}/>
+                  validationMessage={validationMessage.password} loading={loading}/>
       <PopupInput control="Имя" name="name"
                   type="text" placeholder="Введите своё имя"
                   minLength="2" maxLength="30" required={true}
                   value={inputValue.name}
                   onChange={handleInputChange} isValid={isValid.name}
-                  validationMessage={validationMessage.name}/>
+                  validationMessage={validationMessage.name} loading={loading}/>
     </PopupForm>
   )
 }

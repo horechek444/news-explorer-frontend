@@ -6,26 +6,30 @@ const SavedNewsHeader = ({userArticles}) => {
   const currentUser = React.useContext(CurrentUserContext);
   const keywords = userArticles ? Array.from(userArticles, ({keyword}) => keyword) : [];
 
+  const keywordsCount = {};
+  let keywordsUniq = [];
   for (let length = keywords.length, i = length; --i >= 0;) {
-    if (keywords[keywords[i]]) {
-      keywords[keywords[i]] += 1;
-      keywords.splice(i, 1);
+    if (!keywordsUniq.includes(keywords[i])) {
+      keywordsUniq.push(keywords[i]);
+    }
+    if (keywordsCount[keywords[i]]) {
+      keywordsCount[keywords[i]] += 1;
     } else {
-      keywords[keywords[i]] = 1;
+      keywordsCount[keywords[i]] = 1;
     }
   }
 
-  keywords.sort(function (a, b) {
-    return keywords[b] - keywords[a];
+  keywordsUniq.sort((a, b) => {
+    return keywordsCount[b] - keywordsCount[a];
   });
 
-  const handleText = () => {
-    if (keywords.length === 3) {
-      return keywords[2][0].toUpperCase() + keywords[2].slice(1, keywords[2].length);
-    } else if (keywords.length > 3) {
-      return `${keywords.length - 2}-м другим`;
-    }
+  const isMoreThanThree = Object.keys(keywordsUniq).length > 3;
+  const allCount = keywordsUniq.length;
+  if (isMoreThanThree) {
+    keywordsUniq = keywordsUniq.slice(0, 2);
   }
+
+  keywordsUniq = keywordsUniq.map((k) => k[0].toUpperCase() + k.slice(1, k.length));
 
   return (
     <section className="saved-news__header">
@@ -33,8 +37,8 @@ const SavedNewsHeader = ({userArticles}) => {
       <h2 className="saved-news__title">{currentUser.name}, у
         вас {userArticles.length ? userArticles.length : "пока нет"} сохранённых статей</h2>
       <span
-        className="saved-news__keywords">По ключевым словам: <b>{keywords.length > 0 ? keywords[0][0].toUpperCase() + keywords[0].slice(1, keywords[0].length) : " ничего не найдено"}</b>
-        <b>{", " + keywords.length > 1 ? keywords[1][0].toUpperCase() + keywords[1].slice(1, keywords[1].length) : ""}</b>{keywords.length >= 3 ? " и " : ""}<b>{handleText()}</b>
+        className="saved-news__keywords">По ключевым словам: <b>{isMoreThanThree ? keywordsUniq.join(", ") : (allCount === 3 ? `${keywordsUniq[0]}, ${keywordsUniq[1]} и ${keywordsUniq[2]}` : (allCount > 0 ? keywordsUniq.join(", ") : " ничего не найдено"))}</b> {isMoreThanThree ? ` и ` : ""}
+        <b>{isMoreThanThree ? `${allCount - 2}-м другим` : ""}</b>
       </span>
     </section>
   )

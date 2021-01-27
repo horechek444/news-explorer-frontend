@@ -1,10 +1,8 @@
 import React from "react";
 import './NewsCard.css';
 import CardButton from "../CardButton/CardButton";
-import {useLocation} from 'react-router-dom';
 
-const NewsCard = ({article, loggedIn, onRegisterPopupOpen, onArticleSave, onArticleDelete, userArticle}) => {
-  const location = useLocation();
+const NewsCard = ({article, loggedIn, isMain, onRegisterPopupOpen, onRemoveCallback, onAddCallback}) => {
   const titleHeightRef = React.useRef("");
   const [quantity, setQuantity] = React.useState({});
 
@@ -32,16 +30,20 @@ const NewsCard = ({article, loggedIn, onRegisterPopupOpen, onArticleSave, onArti
 
   return (
     <li className="news-card">
-      <CardButton loggedIn={loggedIn} onRegisterPopupOpen={onRegisterPopupOpen} onArticleSave={onArticleSave} onArticleDelete={onArticleDelete} article={article} userArticle={userArticle}/>
-      <a className="news-card__link" href={location.pathname === '/' ? article.link : userArticle.link} target="_blank" rel="noreferrer">
-        <img className="news-card__picture" src={location.pathname === '/' ? article.image : userArticle.image} alt={location.pathname === '/' ? article.title : userArticle.title}/>
+      <CardButton loggedIn={loggedIn} onRegisterPopupOpen={onRegisterPopupOpen}
+                  onRemoveCallback={onRemoveCallback}
+                  onAddCallback={onAddCallback}
+                  isMain={isMain}
+                  article={article}/>
+      <a className="news-card__link" href={article.link} target="_blank" rel="noreferrer">
+        <img className="news-card__picture" src={article.image} alt={article.title}/>
         <div className="news-card__cover">
-          <span className="news-card__date">{handleDate(location.pathname === '/' ? article.date : userArticle.date)}</span>
-          <h3 ref={titleHeightRef} className="news-card__title">{location.pathname === '/' ? article.title : userArticle.title}</h3>
-          <p className="news-card__paragraph" style={quantity}>{location.pathname === '/' ? article.text : userArticle.text}</p>
-          <span className="news-card__source">{location.pathname === '/' ? article.source : userArticle.source}</span>
+          <span className="news-card__date">{handleDate(article.date)}</span>
+          <h3 ref={titleHeightRef} className="news-card__title">{article.title}</h3>
+          <p className="news-card__paragraph" style={quantity}>{article.text}</p>
+          <span className="news-card__source">{article.source}</span>
           <span
-            className={location.pathname === '/' ? "news-card__theme" : "news-card__theme news-card__theme_type_saved-news"}>{location.pathname === '/' ? article.keyword : userArticle.keyword}</span>
+            className={isMain ? "news-card__theme" : "news-card__theme news-card__theme_type_saved-news"}>{article.keyword}</span>
         </div>
       </a>
     </li>

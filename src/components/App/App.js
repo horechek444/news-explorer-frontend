@@ -31,8 +31,8 @@ const App = () => {
   const [searchError, setSearchError] = React.useState("error");
   const [serverError, setServerError] = React.useState("");
   const [newsError, setNewsError] = React.useState("");
-  const [articles, setArticles] = React.useState(getArticlesData() ? getArticlesData() : null);
-  const [userArticles, setUserArticles] = React.useState([]);
+  const articlesData = getArticlesData();
+  const [articles, setArticles] = React.useState(articlesData ? articlesData : null);
   const history = useHistory();
 
   const handleContentGetter = (token) => {
@@ -128,9 +128,13 @@ const App = () => {
           image: article.urlToImage,
           saved: false,
         }));
-        // handleArticlesSave(results);
-        setArticles(results);
-        setArticlesData(results);
+        if (results) {
+          handleArticlesSaved(results)
+            .then((articles) => {
+              setArticlesData(articles);
+              setArticles(articles);
+            });
+        }
       })
       .catch((err) => {
         setNewsError(`${err}`);
@@ -158,71 +162,52 @@ const App = () => {
 
   const getUserAndSavedArticles = async () => {
     try {
-      const [userInfo, userArticles] = await Promise.all([mainApi.getUserInfo(), mainApi.getArticles()]);
-      // handleArticlesSave(articles);
-      setUserArticles(userArticles);
+      const userInfo = await mainApi.getUserInfo();
       setCurrentUser(userInfo);
     } catch (err) {
       console.log(`${err}`);
     }
   };
 
-  // const handleArticlesSave = (articles) => {
-  //   articles.forEach((article) => {
-  //     if (userArticles) {
-  //       userArticles.forEach((userArticle) => {
-  //         if (userArticle.title === article.title) {
-  //           article.saved = true;
-  //           article._id = userArticle._id;
-  //         }
-  //       })
-  //     }
-  //   })
-  // };
+  const handleArticlesSaved = async (articles) => {
+    try {
+      const userArticles = await mainApi.getArticles();
+      articles.forEach((article) => {
+        if (userArticles) {
+          userArticles.forEach((userArticle) => {
+            if (userArticle.title === article.title) {
+              article.saved = true;
+              article._id = userArticle._id;
+            }
+          })
+        }
+      })
+      return articles
+    } catch (e) {
+      console.log(`${e}`);
+    }
+  };
+
+  const onUpdate = () => {
+    setArticlesData(articles);
+  }
+
+  const onRemoveFromSavedNews = (articleId) => {
+    articles.forEach((article) => {
+      if (article._id === articleId) {
+        delete article._id;
+        article.saved = false;
+      }
+    })
+    setArticlesData(articles);
+    setArticles(articles);
+  }
 
   React.useEffect(() => {
     if (!loggedIn) return;
     getUserAndSavedArticles();
   }, [loggedIn]);
 
-  const handleArticleSave = (article) => {
-    setIsLoading(true);
-    mainApi.createArticle(article)
-      .then((savedArticle) => {
-        setUserArticles([...userArticles, savedArticle]);
-        article._id = savedArticle._id;
-        article.saved = true;
-      })
-      .catch((err) => {
-        console.log(`${err}`);
-      })
-      .finally(() => {
-        setIsLoading(false);
-      })
-  }
-
-  const handleArticleDelete = (article) => {
-    setIsLoading(true);
-    mainApi.deleteArticle(article._id)
-      .then(() => {
-        let articleWidthId;
-        articles.forEach((card) => {
-          if (article.title === card.title) {
-            articleWidthId = card;
-          }
-          card.saved = false;
-          return articleWidthId;
-        });
-        const articlesAfterDelete = userArticles.filter((userArticle) => userArticle._id !== (article._id || articleWidthId._id));
-        setUserArticles(articlesAfterDelete);
-      })
-      .catch((err) => {
-        console.log(`${err}`);
-      })
-      .finally(() => {
-        setIsLoading(false);
-      })
-  }
 
   const handleToggleMenuClick = () => {
     setMenuOpen(!isMenuOpen);
@@ -273,9 +258,8 @@ const App = () => {
                 searchError={searchError}
                 getNewsError={newsError}
                 onSignOut={onSignOut}
-                userArticles={userArticles}
-                onArticleSave={handleArticleSave}
-                onArticleDelete={handleArticleDelete}
+                onRemoveCallback={onUpdate}
+                onAddCallback={onUpdate}
               />
               <Login
                 isOpen={isPopupTypeLoginOpen}
@@ -306,9 +290,7 @@ const App = () => {
                 onClose={handleCloseMenuClick}
                 onSignOut={onSignOut}
                 loading={isLoading}
-                articles={articles}
-                userArticles={userArticles}
-                onArticleDelete={handleArticleDelete}
+                onRemoveCallback={onRemoveFromSavedNews}
               />
             </ProtectedRoute>
           </CurrentUserContext.Provider>

@@ -1,4 +1,4 @@
-.popup__error {
+.error {
     position: absolute;
     top: 54px;
     left: 0;
@@ -12,15 +12,21 @@
     line-height: 1.21;
 }
 
-.popup__error_type_active {
-    opacity: 1;
+.error_type_search {
+    top: 62px;
+    left: 20px;
+    font-size: 14px;
 }
 
-.popup__error_type_server {
-    opacity: 1;
+.error_type_server {
+    opacity: 0;
     display: block;
     top: -20px;
     left: 0;
     text-align: center;
     width: 100%;
+}
+
+.error_active {
+    opacity: 1;
 }

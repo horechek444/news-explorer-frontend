@@ -1,12 +1,12 @@
 import React from "react";
 import './PopupSubmit.css';
-import PopupError from "../PopupError/PopupError";
+import Error from "../Error/Error";
 
-const PopupSubmit = ({submit}) => {
+const PopupSubmit = ({submit, serverError, isValidAll, loading}) => {
   return (
     <div className="popup__submit-cover">
-      <PopupError server={true}/>
-      <input className="popup__submit popup__submit_type_disabled" type="submit" value={submit} name="submit" disabled={true}/>
+      <Error server={true} serverError={serverError}/>
+      <input className={isValidAll ? "popup__submit" : "popup__submit popup__submit_type_disabled"} type="submit" value={submit} name="submit" disabled={!isValidAll || loading}/>
     </div>
   )
 }

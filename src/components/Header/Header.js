@@ -2,19 +2,16 @@ import React from "react";
 import './Header.css';
 import Logo from '../Logo/Logo';
 import Navigation from '../Navigation/Navigation';
-import Login from '../Login/Login';
-import {useLocation} from 'react-router-dom';
+import SignOut from '../SignOut/SignOut';
 import Toggle from "../Toggle/Toggle";
 
-const Header = ({name, isOpen, handleToggleMenuClick, loggedIn, onClose, onLoginPopupOpen, handleLogOut, isPopupOpen}) => {
-  const location = useLocation();
-
+const Header = ({isOpen, handleToggleMenuClick, loggedIn, onClose, isMain, onLoginPopupOpen, isPopupOpen, onSignOut}) => {
   const handleHeaderClassNameClick = () => {
-    if (location.pathname === '/saved-news') {
+    if (!isMain) {
       return "header header_type_saved-news";
-    } else if (location.pathname === '/saved-news' && isOpen) {
+    } else if (!isMain && isOpen) {
       return "header header_type_overlay header_type_saved-news";
-    } else if (location.pathname === '/' && isOpen) {
+    } else if (isMain && isOpen) {
       return "header header_type_overlay header_type_main";
     } else {
       return "header header_type_main";
@@ -22,9 +19,9 @@ const Header = ({name, isOpen, handleToggleMenuClick, loggedIn, onClose, onLogin
   }
 
   const handleContainerClassNameClick = () => {
-    if (location.pathname === '/saved-news' || (location.pathname === '/saved-news' && isOpen)) {
+    if (!isMain || (!isMain && isOpen)) {
       return "header__container header__container_type_saved-news";
-    } else if (location.pathname === '/' && isOpen) {
+    } else if (isMain && isOpen) {
       return "header__container header__container_type_main";
     } else {
       return "header__container";
@@ -32,9 +29,9 @@ const Header = ({name, isOpen, handleToggleMenuClick, loggedIn, onClose, onLogin
   }
 
   const handleCoverClassNameClick = () => {
-    if (location.pathname === '/saved-news' && isOpen) {
+    if (!isMain && isOpen) {
       return "header__cover header__cover_type_saved-news";
-    } else if (location.pathname === '/' && isOpen) {
+    } else if (isMain && isOpen) {
       return "header__cover header__cover_type_main";
     } else {
       return "header__cover";
@@ -45,12 +42,12 @@ const Header = ({name, isOpen, handleToggleMenuClick, loggedIn, onClose, onLogin
     <header className={handleHeaderClassNameClick()}>
       <div className={handleContainerClassNameClick()}>
         <div className="header__unite">
-          <Logo/>
-          <Toggle isOpen={isOpen} handleToggleMenuClick={handleToggleMenuClick} isPopupOpen={isPopupOpen}/>
+          <Logo isMain={isMain}/>
+          <Toggle isOpen={isOpen} handleToggleMenuClick={handleToggleMenuClick} isPopupOpen={isPopupOpen} isMain={isMain}/>
         </div>
         <div className={handleCoverClassNameClick()}>
-          <Navigation loggedIn={loggedIn} onClose={onClose}/>
-          <Login name={name} loggedIn={loggedIn} onLoginPopupOpen={onLoginPopupOpen} handleLogOut={handleLogOut} onClose={onClose}/>
+          <Navigation loggedIn={loggedIn} onClose={onClose} isMain={isMain}/>
+          <SignOut loggedIn={loggedIn} onLoginPopupOpen={onLoginPopupOpen} onClose={onClose} onSignOut={onSignOut} isMain={isMain}/>
         </div>
       </div>
     </header>

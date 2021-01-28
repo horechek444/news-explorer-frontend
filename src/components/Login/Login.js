@@ -1,37 +1,20 @@
 import React from "react";
-import './Login.css';
-import {useLocation} from 'react-router-dom';
+import Popup from "../Popup/Popup";
+import PopupLoginForm from "../PopupLoginForm/PopupLoginForm";
 
-const Login = ({name, loggedIn, onLoginPopupOpen, handleLogOut, onClose}) => {
-  const location = useLocation();
-
-  const handleClassName = () => {
-    if (location.pathname === '/saved-news') {
-      return "button login-button login-button_active login-button_type_saved-news";
+const Login = ({isOpen, onClose, onRegisterPopupOpen, loading, serverError, onLogin}) => {
+  const handleLoginSubmit = ({email, password}) => {
+    if (!email || !password) {
+      return;
     }
-    else if (loggedIn && location.pathname === '/') {
-      return "button login-button login-button_active login-button_type_main"
-    } else {
-      return "button login-button login-button_type_main"
-    }
-  }
-
-  const handleLogin = () => {
-    if (loggedIn) {
-      onClose();
-      handleLogOut();
-    } else {
-      onClose();
-      onLoginPopupOpen();
-    }
+    onLogin(email, password);
   }
 
   return (
-    <button
-      className={handleClassName()}
-      onClick={handleLogin}>{loggedIn ? `${name}` : "Авторизоваться"}</button>
-  )
+    <Popup name="login" title="Вход" isOpen={isOpen} onClose={onClose} onRegisterPopupOpen={onRegisterPopupOpen}>
+      <PopupLoginForm isOpen={isOpen} handleLoginSubmit={handleLoginSubmit} loading={loading} serverError={serverError}/>
+    </Popup>
+  );
 }
-
 
 export default Login;

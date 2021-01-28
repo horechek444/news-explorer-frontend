@@ -3,22 +3,53 @@ import Header from "../Header/Header";
 import NewsCardList from "../NewsCardList/NewsCardList";
 import SavedNewsHeader from "../SavedNewsHeader/SavedNewsHeader";
 import Information from "../Information/Information";
+import mainApi from "../../utils/MainApi";
 
-const SavedNews = ({isOpen, handleToggleMenuClick, name, onLoginPopupOpen, loggedIn, onClose, handleLogOut, loading}) => {
+const SavedNews = ({
+                     isOpen,
+                     handleToggleMenuClick,
+                     onLoginPopupOpen,
+                     loggedIn,
+                     onClose,
+                     onSignOut,
+                     loading,
+                     onRemoveCallback
+                   }) => {
+  const [userArticles, setUserArticles] = React.useState([]);
+
+  const onRemove = (articleId) => {
+    const articlesAfterDelete = userArticles.filter((a) => a._id !== articleId);
+    setUserArticles(articlesAfterDelete)
+    if (onRemoveCallback !== undefined) {
+      onRemoveCallback(articleId)
+    }
+  }
+
+  React.useEffect(() => {
+    mainApi.getArticles()
+      .then((articles) => {
+        setUserArticles(articles)
+      })
+      .catch((err) => {
+        console.log(`${err}`);
+      });
+  }, []);
+
+
   return (
     <>
       <Header
-        name={name}
         isOpen={isOpen}
         handleToggleMenuClick={handleToggleMenuClick}
         loggedIn={loggedIn}
         onClose={onClose}
         onLoginPopupOpen={onLoginPopupOpen}
-        handleLogOut={handleLogOut}
+        onSignOut={onSignOut}
+        isMain={false}
       />
-      <SavedNewsHeader name={name}/>
-      <Information loading={loading}/>
-      <NewsCardList/>
+      <SavedNewsHeader userArticles={userArticles}/>
+      {!userArticles.length ? <Information loading={loading} isMain={false} userArticles={userArticles}/> :
+        <NewsCardList articles={userArticles} onRemoveCallback={onRemove} isMain={false}/>}
     </>
   )
 }

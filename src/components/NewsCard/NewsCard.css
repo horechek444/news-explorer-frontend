@@ -8,6 +8,18 @@
     cursor: pointer;
 }
 
+.news-card__link {
+    text-decoration: none;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    border-radius: 16px;
+    overflow: hidden;
+    cursor: pointer;
+    color: rgba(26, 27, 34, 1);
+}
+
 .news-card:hover {
     box-shadow: 0 0 58px rgba(8, 29, 45, 0.1);
 }
@@ -23,6 +35,7 @@
 .news-card__cover {
     background-color: #FFFFFF;
     padding: 20px 24px 24px 24px;
+    min-height: 260px;
 }
 
 .news-card__date {
@@ -58,6 +71,9 @@
 }
 
 .news-card__source {
+    position: absolute;
+    left: 24px;
+    bottom: 24px;
     text-transform: uppercase;
     color: rgba(182, 188, 191, 1);
     font-family: Roboto-Slab, Arial,sans-serif;
@@ -99,12 +115,14 @@
 
     .news-card__paragraph {
         margin: 0 0 12px;
-        -webkit-line-clamp: calc(var(--lines) - 1);
+        -webkit-line-clamp: var(--lines);
     }
 
     .news-card__source {
         font-size: 16px;
         line-height: 1.25;
+        left: 16px;
+        bottom: 16px;
     }
 
     .news-card__theme {
@@ -120,6 +138,7 @@
 
     .news-card__cover {
         padding: 16px 16px 17px;
+        min-height: 244px;
     }
 
     .news-card__date {
@@ -132,6 +151,7 @@
 
     .news-card__paragraph {
         margin: 0 0 8px;
+        -webkit-line-clamp: calc(var(--lines) - 1);
     }
 
     .news-card__theme {

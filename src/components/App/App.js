@@ -285,7 +285,7 @@ const App = () => {
                 onClose={handleCloseAllPopups}
                 onLoginPopupOpen={handlePopupTypeLoginOpen}/>
             </Route>
-            <ProtectedRoute exact path="/saved-news" loggedIn={loggedIn}>
+            <ProtectedRoute path="/saved-news" loggedIn={loggedIn} onLoginPopupOpen={handlePopupTypeLoginOpen}>
               <SavedNews
                 isOpen={isMenuOpen}
                 onLoginPopupOpen={handlePopupTypeLoginOpen}

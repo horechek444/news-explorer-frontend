@@ -8,9 +8,11 @@ const CardButton = ({loggedIn, onRegisterPopupOpen, article, isMain, onRemoveCal
   const handleArticleSave = (article) => {
     mainApi.createArticle(article)
       .then((savedArticle) => {
-        setSaved(true);
         article._id = savedArticle._id;
         article.saved = true;
+        if (article.saved) {
+          setSaved(true);
+        }
         if (onAddCallback !== undefined) {
           onAddCallback(savedArticle);
         }
@@ -24,7 +26,9 @@ const CardButton = ({loggedIn, onRegisterPopupOpen, article, isMain, onRemoveCal
     mainApi.deleteArticle(userArticle._id)
       .then(() => {
         article.saved = false;
-        setSaved(false);
+        if (!article.saved) {
+          setSaved(false);
+        }
         if (onRemoveCallback !== undefined) {
           onRemoveCallback(userArticle._id);
         }

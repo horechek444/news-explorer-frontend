@@ -51,7 +51,7 @@ const App = () => {
     handleContentGetter(jwt)
       .catch((err) => {
         if (err.code === 401) {
-          console.log(err.message)
+          console.log(err.message);
         }
       });
   }
@@ -133,7 +133,9 @@ const App = () => {
             .then((articles) => {
               setArticlesData(articles);
               setArticles(articles);
-            });
+            }).catch((err) => {
+            console.log(`${err}`);
+          })
         }
       })
       .catch((err) => {
@@ -160,7 +162,7 @@ const App = () => {
     }
   }
 
-  const getUserAndSavedArticles = async () => {
+  const getUserInfo = async () => {
     try {
       const userInfo = await mainApi.getUserInfo();
       setCurrentUser(userInfo);
@@ -171,20 +173,22 @@ const App = () => {
 
   const handleArticlesSaved = async (articles) => {
     try {
-      const userArticles = await mainApi.getArticles();
-      articles.forEach((article) => {
-        if (userArticles) {
-          userArticles.forEach((userArticle) => {
-            if (userArticle.title === article.title) {
-              article.saved = true;
-              article._id = userArticle._id;
-            }
-          })
-        }
-      })
-      return articles
-    } catch (e) {
-      console.log(`${e}`);
+      if (loggedIn) {
+        const userArticles = await mainApi.getArticles();
+        articles.forEach((article) => {
+          if (userArticles) {
+            userArticles.forEach((userArticle) => {
+              if (userArticle.title === article.title) {
+                article.saved = true;
+                article._id = userArticle._id;
+              }
+            })
+          }
+        })
+      }
+      return articles;
+    } catch (err) {
+      console.log(`${err}`);
     }
   };
 
@@ -205,7 +209,7 @@ const App = () => {
 
   React.useEffect(() => {
     if (!loggedIn) return;
-    getUserAndSavedArticles();
+    getUserInfo();
   }, [loggedIn]);
 
 

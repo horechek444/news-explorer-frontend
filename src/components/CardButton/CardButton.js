@@ -3,7 +3,7 @@ import './CardButton.css';
 import mainApi from "../../utils/MainApi";
 
 const CardButton = ({loggedIn, onRegisterPopupOpen, article, isMain, onRemoveCallback, onAddCallback}) => {
-  const [saved, setSaved] = React.useState(article.saved)
+  const [saved, setSaved] = React.useState(article.saved);
 
   const handleArticleSave = (article) => {
     mainApi.createArticle(article)

@@ -6,29 +6,25 @@ import Information from "../Information/Information";
 import mainApi from "../../utils/MainApi";
 
 const SavedNews = ({
-                     isOpen,
-                     handleToggleMenuClick,
-                     onLoginPopupOpen,
-                     loggedIn,
-                     onClose,
-                     onSignOut,
-                     loading,
-                     onRemoveCallback
+                     isOpen, handleToggleMenuClick,
+                     onLoginPopupOpen, loggedIn,
+                     onClose, onSignOut,
+                     loading, onRemoveCallback
                    }) => {
   const [userArticles, setUserArticles] = React.useState([]);
 
   const onRemove = (articleId) => {
     const articlesAfterDelete = userArticles.filter((a) => a._id !== articleId);
-    setUserArticles(articlesAfterDelete)
+    setUserArticles(articlesAfterDelete);
     if (onRemoveCallback !== undefined) {
-      onRemoveCallback(articleId)
+      onRemoveCallback(articleId);
     }
   }
 
   React.useEffect(() => {
     mainApi.getArticles()
       .then((articles) => {
-        setUserArticles(articles)
+        setUserArticles(articles);
       })
       .catch((err) => {
         console.log(`${err}`);

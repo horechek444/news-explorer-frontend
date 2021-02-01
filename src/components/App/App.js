@@ -8,13 +8,14 @@ import Footer from "../Footer/Footer";
 import PopupTypeSuccess from "../PopupTypeSuccess/PopupTypeSuccess";
 import newsApi from "../../utils/NewsApi";
 import mainApi from "../../utils/MainApi";
-import {getArticlesData, lastDate, nowDate, setArticlesData} from "../../utils/utils";
+import {getArticlesData, lastDate, nowDate, setArticlesData, removeArticlesData} from "../../utils/utils";
 import {getToken, removeToken, setToken} from "../../utils/token";
 import * as auth from '../../auth';
 import Login from "../Login/Login";
 import Register from "../Register/Register";
 import {CurrentUserContext} from "../../contexts/CurrentUserContext";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
+import noFoto from '../../images/no_foto.jpg';
 
 const App = () => {
   const [isMenuOpen, setMenuOpen] = React.useState(false);
@@ -110,6 +111,7 @@ const App = () => {
 
   const onSignOut = () => {
     removeToken();
+    removeArticlesData();
     setLoggedIn(false);
     history.push('/');
   }
@@ -125,7 +127,7 @@ const App = () => {
           date: article.publishedAt,
           source: article.source.name,
           link: article.url,
-          image: article.urlToImage,
+          image: article.urlToImage ? article.urlToImage : noFoto,
           saved: false,
         }));
         if (results) {

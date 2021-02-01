@@ -1,4 +1,13 @@
-# Getting Started with Create React App
+# news-explorer-frontend
+
+Репозиторий проекта **News-explorer**, включающий фронтенд часть приложения со следующими возможностями: 
+авторизация и регистрация пользователей, возможность поиска новостей по теме и сохранения новостей в защищенном кабинете для авторизованного пользователя.
+
+С проектом можно ознакомиться по ссылке: https://news-explorer-frontend-five.vercel.app/
+
+Ниже инструкция по работе с Create React App:
+
+## Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
